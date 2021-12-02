@@ -34,3 +34,6 @@ def recommenderPageView(request):
 
 def searchLandingView(request):
     return render(request, 'OpiodPages/searchlanding.html')
+
+def indexRenamePageView(request):
+    return render(request, 'OpiodPages/indexRename.html')

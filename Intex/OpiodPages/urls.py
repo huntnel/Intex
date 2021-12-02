@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import indexPageView, analysis1PageView, analysis2PageView, analysis3PageView, analysisLandingView, drugSearchView, educationLandingView, predictorPageView, prescriberSearchView, recommenderPageView, searchLandingView 
+from .views import indexPageView, analysis1PageView, analysis2PageView, analysis3PageView, analysisLandingView, drugSearchView, educationLandingView, predictorPageView, prescriberSearchView, recommenderPageView, searchLandingView, indexRenamePageView 
 
 
 urlpatterns = [
@@ -14,4 +14,6 @@ urlpatterns = [
     path("prescribersearch/", indexPageView, name = "prescribersearch"),
     path("recommender/", indexPageView, name = "recommender"),
     path("searchlanding/", indexPageView, name = "searchlanding"),  
+    #Remove this later the one under this comment
+    path("indexRename/", indexRenamePageView, name = "indexRename"),
 ]
