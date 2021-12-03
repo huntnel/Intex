@@ -22,16 +22,10 @@
             {% comment %} <i class="far fa-map"></i> {% endcomment %}
             <!--ICON <img style="height:20px;" src="{% static 'otherPages/images/icons/pill.png' %}" alt=""> -->
             <div class="media-body">
-              <h3>Drug Name</h3>
+              <h3>Search By Drug</h3>
             </div>
           </div>
           <!-- isOpioid -->
-          <div class="media">
-            {% comment %} <i class="fas fa-phone"></i> {% endcomment %}
-            <div class="media-body">
-              <h3>Is the drug an opioid?</h3>
-            </div>
-          </div>
           <!-- Email -->
           <div class="media">
             {% comment %} <i class="far fa-pill"></i> {% endcomment %}
@@ -47,21 +41,22 @@
       <div class="col-lg-8 col-md-7">
         <div class="contact-form">
           <!-- contact form start -->
-          <form action="!#" class="row">
+          <form action="{% url 'drugfind' %}" method="GET" class="row">
             <!-- name -->
-            <div class="col-lg-6">
+            <div class="col-lg-6 addFlex">
               <input type="text" name="name" id="name" class="form-control main" placeholder="Name of Drug" required>
             </div>
             <!-- isOpioid -->
-            <div class="col-lg-6">
-              <select name="bOpioid" id="bOpioid" required>
+            <div class="col-lg-6 addFlex">
+              <h6>Is it an opioid?</h6>
+              <select name="bOpioid" id="bOpioid" class="formatInput" required>
                 <option value="True">Yes</option>
                 <option value="False">No</option>
               </select>
-            </div>
-            <!-- submit button -->
-            <div class="col-md-12 text-right">
-              <button class="btn btn-style-one" type="submit">Send Message</button>
+              <!-- submit button -->
+              <div class="col-md-6 text-right">
+                <button class="btn btn-style-one" type="submit">Search</button>
+              </div>
             </div>
           </form>
           <!-- contact form end -->
@@ -70,17 +65,21 @@
     </div>
   </div>
   <!-- container end -->
-</section>
+</section> 
 <!--====  End of Contact Form  ====-->
 <!--***********************************88888-->
 
 
               <form action="{% url 'drugfind' %}" method="GET">
-                <table style="width: 80%;">
+                <table class="formTable">
                     <tr>
                         <td>
-                            <label for="drugName">Drug Name:</label>
-                            <input type="text" name="drugName" id="drugName">
+                          <div class="media-body">
+                            <h3>Search</h3>
+                          </div>
+                          <div class="col-lg-6">
+                            <input type="text" class="form-control main" name="drugName" id="drugName" placeholder="Search Name of Drug" required>
+                          </div>
                         </td>
                         <td>
                             <label for="bOpioid">Is the drug an opioid?</label>
@@ -94,15 +93,7 @@
                         </td>
                     <tr>
               </form>
-              <table style="margin-left:auto;margin-right:auto;width: 50%;">
-                <tr>
-                    <td style="font-weight:bold;"></td>
-                    <td style="font-weight:bold;"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-              </table>
+            
 <!-- Contact Section -->
 <section class="blog-section style-four section">
     <div class="container">
