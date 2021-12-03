@@ -32,12 +32,12 @@ header
 }
   
 .sub-header .right-icons ul li a:hover {
-    color: #f5a425;
+    color: #48BDC5;
 }
   
 .sub-header .left-content p em {
      font-style: normal;
-     color: #f5a425;
+     color: #48BDC5;
 }
   
 .background-header {
@@ -60,11 +60,11 @@ header
 }
   
 .background-header .main-nav .nav li:hover a {
-    color: #fb5849!important;
+    color: #48BDC5!important;
 }
   
 .background-header .nav li a.active {
-    color: #fb5849!important;
+    color: #48BDC5!important;
 }
 
 .header-area {
@@ -214,7 +214,7 @@ header
   
 .header-area .main-nav .nav li.has-sub ul li a:hover {
     background: #fff;
-    color: #f5a425!important;
+    color: #48BDC5!important;
     padding-left: 25px;
 }
   
@@ -431,7 +431,7 @@ header
     }
     .header-area .main-nav .nav li a:hover {
       background: #eee !important;
-      color: #f5a425!important;
+      color: #48BDC5!important;
     }
     .header-area .main-nav .nav li.has-sub ul.sub-menu {
       position: relative;
