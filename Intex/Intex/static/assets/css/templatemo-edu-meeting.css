@@ -118,6 +118,10 @@ img {
   overflow: hidden;
 }
 
+.addHue img {
+  filter: hue-rotate(-226deg);
+}
+
 /* 
 ---------------------------------------------
 global styles
@@ -779,13 +783,13 @@ services
 }
 
 .services .item {
-  background-image: url(../images/service-item-bg.jpg);
+  background-color: white;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
   border-radius: 20px;
   text-align: center;
-  color: #fff;
+  color: #132646 ;
   padding: 40px;
 }
 
@@ -802,7 +806,7 @@ services
 }
 
 .services .item p {
-  color: #fff;
+  color: #132646 ;
   font-size: 13px;
 }
 
@@ -888,7 +892,7 @@ upcoming meetings
 */
 
 section.upcoming-meetings {
-  background-image: url(../images/meetings-bg.jpg);
+  background-color: black;
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -1022,7 +1026,7 @@ apply now
 */
 
 section.apply-now {
-  background-image: url(../images/apply-bg.jpg);
+  background-color: black;
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -1106,7 +1110,7 @@ courses
 */
 
 section.our-courses {
-  background-image: url(../images/meetings-bg.jpg);
+  background-color: black;
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -1254,7 +1258,7 @@ our facts
 */
 
 section.our-facts {
-  background-image: url(../images/facts-bg.jpg);
+  background-color: black;
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -1324,7 +1328,7 @@ contact us
 */
 
 section.contact-us {
-  background-image: url(../images/meetings-bg.jpg);
+  background-color: black;
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -1454,7 +1458,7 @@ heading page
 */
 
 section.heading-page {
-  background-image: url(../images/heading-bg.jpg);
+  background-color: black;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1490,7 +1494,7 @@ upcoming meetings page
 */
 
 section.meetings-page {
-  background-image: url(../images/meetings-page-bg.jpg);
+  background-color: black;
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
