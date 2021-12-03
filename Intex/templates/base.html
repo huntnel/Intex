@@ -36,6 +36,7 @@
   
   <!-- Stylesheets -->
   <link href="{% static 'otherPages/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/base-header.css' %}" rel="stylesheet">
   
   <!--Favicon-->
   <link rel="icon" href="{% static 'otherPages/images/favicon.png' %}" type="image/x-icon">
@@ -46,8 +47,8 @@
 <body>
 <div class="page-wrapper">
 
-  <!--Main Header-->
-  <nav class="navbar navbar-expand-lg navbar-dark">
+  <!--Medical Website Main Header-->
+  <!--<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarLinks" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -95,8 +96,45 @@
         </ul>
       </div>
     </div>
-  </nav>
+  </nav> -->
   <!--End Main Header -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="index.html" class="logo">
+                        Edu Meeting
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                        <li><a href="meetings.html">Meetings</a></li>
+                        <li class="scroll-to-section"><a href="#apply">Apply Now</a></li>
+                        <li class="has-sub">
+                            <a href="javascript:void(0)">Pages</a>
+                            <ul class="sub-menu">
+                                <li><a href="meetings.html">Upcoming Meetings</a></li>
+                                <li><a href="meeting-details.html">Meeting Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="scroll-to-section"><a href="#courses">Courses</a></li> 
+                        <li class="scroll-to-section"><a href="#contact">Contact Us</a></li> 
+                    </ul>        
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ***** Header Area End ***** -->
 
   <!--Start Page Content Block-->
   {% block content %}
@@ -202,24 +240,6 @@
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <div class="container clearfix">
-        <div class="copyright-text">
-          <p>&copy; Copyright 2021. Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
-        </div>
-        <ul class="footer-bottom-link">
-          <li>
-            <a href="index.html">Home</a>
-          </li>
-          <li>
-            <a href="about.html">About</a>
-          </li>
-          <li>
-            <a href="contact.html">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
   </footer>
   <!--End footer-main-->
 
@@ -258,6 +278,24 @@
 
 <!-- script js -->
 <script src="{% static 'otherPages/js/script.js' %}"></script>
+
+
+
+
+
+<!--Dynamic On Scroll JavaScript-->
+  <script>
+  var header = $(".background-header");
+    $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+
+        if (scroll >= $(window).height()) {
+            $("header").addClass("background-header");
+        } else {
+            $("header").removeClass("background-header");
+        }
+    });
+  </script>
 </body>
 
 </html>

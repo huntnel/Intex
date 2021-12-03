@@ -2919,6 +2919,7 @@ button:focus {
   font-weight: 700;
   text-transform: uppercase;
   margin-bottom: 10px;
+  margin-top: 10%;
   letter-spacing: 1px;
   font-family: "Source Sans Pro", sans-serif;
 }
