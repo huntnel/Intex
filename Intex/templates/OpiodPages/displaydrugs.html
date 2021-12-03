@@ -9,4 +9,6 @@
         <td>{{drug.isopioid}}</td>
     </tr>
     {% endfor %}
+    <form action="{% url 'prescribersearch' %}" method="GET"><button type="submit">Search Again</button>
+    {% comment %} <form action="{% url 'prescribersearch' %}" method="GET"><button type="submit">Search for a drug prescriber</button> {% endcomment %}
 </table>

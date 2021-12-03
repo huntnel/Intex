@@ -33,7 +33,7 @@ def drugFindPageView(request):
         context = {
             "drugs" : data
         }
-        return render(request, 'OpiodPages/drugsearch.html', context)
+        return render(request, 'OpiodPages/displaydrugs.html', context)
     else:
         return render(request, 'OpiodPages/notfound.html')
 
@@ -175,16 +175,16 @@ def prescriberFindPageView(request) :
     sSpecialty = request.GET['specialty']
 
     data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast, gender=sGender, state=sLocation)
-    data2 = Prescriber_Credential.objects.filter(npi=sCred)
-    print(data2)
-    # if data.count() > 0:
-    context = {
-            'prescribers' : data,
-            'credentials' : data2
-        }
-    return render(request, 'OpiodPages/prescriberdisplay.html', context)
-    # else : 
-    #     return render(request, 'OpiodPages/notfound.html')
+    if data.count() > 0:
+        data2 = Prescriber_Credential.objects.filter(npi=sCred)
+        print(data2)
+        context = {
+                'prescribers' : data,
+                'credentials' : data2
+            }
+        return render(request, 'OpiodPages/prescriberdisplay.html', context)
+    else : 
+        return render(request, 'OpiodPages/notfound.html')
 
 def recommenderPageView(request):
     return render(request, 'OpiodPages/recommender.html')
