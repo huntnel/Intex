@@ -42,11 +42,13 @@
   <!--Favicon-->
   <link rel="icon" href="{% static 'otherPages/images/favicon.png' %}" type="image/x-icon">
 
+  <title>UTAH Opioid Task Force</title>
+
 </head>
 
 
 <body>
-<div class="page-wrapper">
+
 
   <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky">
@@ -56,7 +58,7 @@
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="{% url 'index' %}" class="logo">
-                        Edu Meeting
+                      UTAH Opioid Task Force
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
@@ -82,13 +84,13 @@
     </div>
 </header>
 <!-- ***** Header Area End ***** -->
-
+<div class="page-wrapper">
 <!--Page Title-->
 <!--Includes a block with the hero image-->
 <section class="page-title text-center" style="background-image:url({% block hero %}{% endblock %} );">
   <div class="container">
       <div class="title-text">
-          <h1>gallery</h1>
+          {% block pageTitle %}{% endblock %}
       </div>
   </div>
 </section>

@@ -7,6 +7,7 @@
 
 <!-- Block for Hero Image-->
 {% block hero %}{% static 'otherPages/images/background/3.jpg' %}{% endblock %}
+{% block pageTitle %}<h1>Education</h1>{% endblock %}
 
 <!-- Block Body Content-->
 {% block content %}
@@ -17,18 +18,18 @@
       <div class="row">
         <div class="col-lg-6 mb-5 mb-lg-0">
           <div class="content-block">
-            <h2>Clinical And <br>Medical Education</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas eius optio repellendus quasi nisi vitae
-              laboriosam explicabo eligendi sapiente in.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, dolorum esse tempora id architecto
-              laboriosam.
+            <h2>What are some <br>common opiodids?</h2>
+            <p>
+              Opioids are a class of drugs that include the illegal drug
+              heroin, synthetic opioids such as fentanyl, and pain relievers
+              available legally by prescription.
             </p>
-            <ul>
+            {% comment %} <ul>
               <li><i class="fas fa-caret-right"></i>vitae laboriosam explicabo eligendi sapiente</li>
               <li><i class="fas fa-caret-right"></i>consectetur adipisicing elit. Beatae</li>
               <li><i class="fas fa-caret-right"></i>dolorum esse tempora id architecto</li>
               <li><i class="fas fa-caret-right"></i>optio repellendus quasi nisi vitae</li>
-            </ul>
+            </ul> {% endcomment %}
             <a href="appointment.html" class="btn btn-style-one">Appoint</a>
           </div>
         </div>
@@ -40,22 +41,28 @@
                   <div class="card-header" role="tab" id="headingOne">
                     <h4 class="card-title">
                       <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Why Should I choose Medical Health
+                        Prescription Opioids
                       </a>
                     </h4>
                   </div>
                   <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionGroup">
                     <div class="card-body">
-                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-                      officia aute,
-                      non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-                      tempor,
-                      sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
-                      helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                      vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably
-                      haven't
-                      heard of them accusamus labore sustainable VHS.
+                      Prescription opioids can be prescribed by doctors to treate
+                      moderate to severe pain but can also have serius risks and side
+                      effects. Some common types include:
+
+                      <ul class="content-list">
+                        <li>
+                          <i class="fas fa-caret-right"></i> Oxycodone (OxyContin)</li>
+                        <li>
+                          <i class="fas fa-caret-right"></i> Hydrocodone (Vicodin)</li>
+                        <li>
+                          <i class="fas fa-caret-right"></i> Morphine</li>
+                        <li>
+                          <i class="fas fa-caret-right"></i> Methadone</li>
+                      </ul>
                     </div>
+                    
                   </div>
                 </div>
                 <div class="card">
@@ -63,21 +70,16 @@
                     <h4 class="card-title">
                       <a class="collapsed" role="button" data-toggle="collapse" href="#collapseTwo"
                         aria-expanded="false" aria-controls="collapseTwo">
-                        What are the Centre’s visiting hours?
+                        Fentanyl
                       </a>
                     </h4>
                   </div>
                   <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordionGroup">
                     <div class="card-body">
-                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-                      officia aute,
-                      non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-                      tempor,
-                      sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
-                      helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                      vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably
-                      haven't
-                      heard of them accusamus labore sustainable VHS.
+                      Fentanyl is a synthetic opioid pain reliever. It is many times
+                      more powerful than other opiods and is approved for treating severe
+                      pain, typically advanced cance pain. Illegally made and distributed
+                      fentanyl has been on the rise in several states.
                     </div>
                   </div>
                 </div>
@@ -86,21 +88,14 @@
                     <h4 class="card-title">
                       <a class="collapsed" role="button" data-toggle="collapse" href="#collapseThree"
                         aria-expanded="false" aria-controls="collapseThree">
-                        How many visitors are allowed?
+                        Heroin
                       </a>
                     </h4>
                   </div>
                   <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordionGroup">
                     <div class="card-body">
-                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-                      officia aute,
-                      non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-                      tempor,
-                      sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
-                      helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                      vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably
-                      haven't
-                      heard of them accusamus labore sustainable VHS.
+                      Heroin is an illegal opiod. Nearly 40 people die every day
+                      from an overdose death involving heroin in the United States.
                     </div>
                   </div>
                 </div>
@@ -121,24 +116,27 @@
         <div class="col-lg-6">
           <div class="contents">
             <div class="section-title">
-              <h3>pulmonary</h3>
+              <h3>What is an opioid overdose?</h3>
             </div>
             <div class="text">
-              <p>The implant fixture is first placed, so that it ilikely to osseointegrate, then a dental prosthetic
-                is added.
-                then a dental prosthetic is added.then a dental pros- thetic is added.</p>
-              <p>The implant fixture is first placed, so that it ilikely to osseointegrate, then a dental prosthetic
-                is added.
-                then a dental prosthetic is added.then a dental pros- thetic is added.</p>
+              <p>
+                Opioids can cause bad reactions that 
+                make your breathing slow or even stop. 
+                This can happen if your body can't handle 
+                the opioids that you take that day.
+              </p>
+              <h4>How to avoid an accidental overdose?</h4>
+              <p>
+                Try not to mix your opioids with alcohol, 
+                benzodiazepines (Xanax, Ativan,
+                Klonopin, Valium), or medicines that make you sleepy.
+              </p>
+              <p>
+                Be extra careful if you miss or change 
+                doeses, feel ill, or start new medications.
+              </p>  
+  
             </div>
-            <ul class="content-list">
-              <li>
-                <i class="far fa-check-circle"></i>Whitening is among the most popular dental</li>
-              <li>
-                <i class="far fa-check-circle"></i>Teeth cleaning is part of oral hygiene and involves</li>
-              <li>
-                <i class="far fa-check-circle"></i>Teeth cleaning is part of oral hygiene and involves</li>
-            </ul>
             <a href="service.html" class="btn btn-style-one">Read more</a>
           </div>
         </div>
