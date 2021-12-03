@@ -17,16 +17,17 @@
       <div class="col-lg-4 col-md-5 ">
         <!-- address start -->
         <div class="address-block">
-          <!-- Location -->
+          <!-- Drug Name -->
           <div class="media">
-            <i class="far fa-map"></i>
+            {% comment %} <i class="far fa-map"></i> {% endcomment %}
+            <!--ICON <img style="height:20px;" src="{% static 'otherPages/images/icons/pill.png' %}" alt=""> -->
             <div class="media-body">
               <h3>Drug Name</h3>
             </div>
           </div>
-          <!-- Phone -->
+          <!-- isOpioid -->
           <div class="media">
-            <i class="fas fa-phone"></i>
+            {% comment %} <i class="fas fa-phone"></i> {% endcomment %}
             <div class="media-body">
               <h3>Is the drug an opioid?</h3>
             </div>
@@ -49,19 +50,14 @@
           <form action="!#" class="row">
             <!-- name -->
             <div class="col-lg-6">
-              <input type="text" name="name" class="form-control main" placeholder="Name" required>
+              <input type="text" name="name" id="name" class="form-control main" placeholder="Name of Drug" required>
             </div>
-            <!-- email -->
+            <!-- isOpioid -->
             <div class="col-lg-6">
-              <input type="email" class="form-control main" placeholder="Email" required>
-            </div>
-            <!-- phone -->
-            <div class="col-lg-12">
-              <input type="text" class="form-control main" placeholder="Phone" required>
-            </div>
-            <!-- message -->
-            <div class="col-lg-12">
-              <textarea name="message" rows="10" class="form-control main" placeholder="Your message"></textarea>
+              <select name="bOpioid" id="bOpioid" required>
+                <option value="True">Yes</option>
+                <option value="False">No</option>
+              </select>
             </div>
             <!-- submit button -->
             <div class="col-md-12 text-right">
