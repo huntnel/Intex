@@ -1,0 +1,24 @@
+.formTable {
+    padding: none;
+    width: 100%;
+}
+
+.addFlex {
+    display: flex;
+    align-items: center;
+}
+
+.formatInput {
+    height: 42px;
+    width: 61px;
+    margin: 10px;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    color: #495057;
+}
+
+.formatInput:focus {
+    box-shadow: none;
+    border: 1px solid #48bdc5;
+}
