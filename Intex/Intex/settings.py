@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'Intex.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'intex_opiod',
+        'NAME': 'please',
         'USER': 'postgres',
-        'PASSWORD' : 'admin',
+        'PASSWORD' : 'Huntern1@',
         'HOST' : 'localhost',
         'PORT' : 5432,
     }

@@ -1,0 +1,8 @@
+
+{% load static %}
+{% block content %}
+
+<p>Not Found</p>
+<form action="{% url 'prescribersearch' %}" method="GET"><button type="submit">Search for a drug prescriber</button>
+    <form action="{% url 'drugsearch' %}" method="GET"><button type="submit">Search for a drug</button>
+{% endblock %}

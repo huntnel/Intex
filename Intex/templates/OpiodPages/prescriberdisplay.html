@@ -1,0 +1,36 @@
+{% load static %}
+{% block content %}
+<table style="margin-left:auto;margin-right:auto;width: 50%;">
+    <tr>
+        <td style="font-weight:bold;">NPI</td>
+        <td style="font-weight:bold;">Name</td>
+        <td style="font-weight:bold;">Gender</td>
+        <td style="font-weight:bold;">State</td>
+        <td style="font-weight:bold;">Specialty</td>
+        <td style="font-weight:bold;">Do they prescribe opioids?</td>
+        <td style="font-weight:bold;">Number of drugs prescribed</td>
+    </tr>
+    {% for pre in prescribers %}
+    <tr>
+        <td>{{pre.npi}}</td>
+        <td>{{pre.fname}} {{pre.lname}}</td>
+        <td>{{pre.gender}}</td>
+        <td>{{pre.state.state}}</td>
+        <td>{{pre.specialty}}</td>
+        <td>{{pre.isopioidprescriber}}</td>
+        <td>{{pre.totalprescriptions}}</td>
+    </tr>
+    {% endfor %}
+</table> 
+<table style="margin-left:auto;margin-right:auto;width: 50%;">
+    <tr>
+        <td style="font-weight:bold;">Credentials:</td>
+    </tr>
+    {% for cre in credentials.all %}
+    <tr>
+        <td>{{cre.npi}}</td>
+    </tr>
+    {% endfor %}
+</table> 
+<form action="{% url 'prescribersearch' %}" method="GET"><button type="submit">Search Again</button>
+{% endblock %}
