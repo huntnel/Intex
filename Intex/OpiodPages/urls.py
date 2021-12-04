@@ -5,7 +5,7 @@ from .views import test, editPageView, updatePageView, deletePageView, createPre
 urlpatterns = [
     path("", indexPageView, name = "index"),
     path("predictordisplay/", analysis1PageView, name = "predictordisplay"),
-    path("analysis2/", analysis2PageView, name = "analysis2"),
+    path("recommenderdisplay/", analysis2PageView, name = "recommenderdisplay"),
     path("analysis3/", analysis3PageView, name = "analysis3"),
     path("analysislanding/", analysisLandingView, name = "analysislanding"),
     path("drugsearch/", drugSearchView, name = "drugsearch"),

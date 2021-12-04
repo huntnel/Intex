@@ -363,3 +363,78 @@ def predictorPageView(request):
 
     return render(request, 'OpiodPages/predictordisplay.html', context)
     
+def recommenderPageView(request): 
+    if request.method == 'POST' :
+        npi = request.POST['npi']
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        state = request.POST['state']
+        gender = request.POST['gender']
+        specialty = request.POST['specialty']
+        isoppresc = request.POST['isop']
+        totpresc = int(request.POST['total'])
+        totpresc = totpresc/totpresc/totpresc
+    
+    url = "http://65a45df2-2b8f-4b35-a262-d56b3933e309.eastus2.azurecontainer.io/score"
+    payload = json.dumps({
+    "Inputs": {
+        "input1": [
+        {
+            "prescriberid": npi,
+            "drugname": "LANTUS.SOLOSTAR",
+            "Cuberoot(qty)": 3.6593057100229713
+        }
+        ],
+        "WebServiceInput0": [
+        {
+            "npi": npi,
+            "fname": fname,
+            "lname": lname,
+            "gender": gender,
+            "state": state,
+            "specialty": specialty,
+            "isopioidprescriber": isoppresc,
+            "Cuberoot(totalprescriptions)": totpresc
+        }
+        ],
+        "WebServiceInput1": [
+        {
+            "drugname": "ABILIFY",
+            "isopioid": "False"
+        }
+        ]
+    },
+    "GlobalParameters": {}
+    })
+    headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ry7SQKtAr9CuX3mtzEdgEnaNoZfF496f'
+    }
+    response = requests.request("POST", url, headers=headers, data=payload)
+    json_data = json.loads(response.text)
+    
+    items = (json_data['Results']['WebServiceOutput0'][0])
+   
+    iCount = 0
+    mydict = {}
+    print("Total Prescriptions: ")
+    for item in items :
+        mydict[iCount] = items[item]
+        iCount += 1
+    
+    rec1 = mydict[0]
+    rec2 = mydict[1]
+    rec3 = mydict[2]
+    rec4 = mydict[3]
+    rec5 = mydict[4]
+    
+    print(mydict)
+    context = {
+        "rec1" : rec1,
+        "rec2" : rec2,
+        "rec3" : rec3,
+        "rec4" : rec4,
+        "rec5" : rec5,
+    }
+    
+    return render(request, 'recommenderdisplay.html', context)
