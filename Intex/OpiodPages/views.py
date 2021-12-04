@@ -27,7 +27,15 @@ def analysis3PageView(request):
     return render(request, 'OpiodPages/analysis3.html')
 
 def analysisLandingView(request):
-    return render(request, 'OpiodPages/analysislanding.html')
+    credentials = Credential.objects.all() 
+    locations = State.objects.all()
+    prescriber = pd_prescriber.objects.all()
+    context = {
+        "Credentials": credentials,
+        "Locations" : locations,
+        "Prescriber" : prescriber,
+    }   
+    return render(request, 'OpiodPages/analysislanding.html', context)
 
 def drugSearchView(request):
     return render(request, 'OpiodPages/drugsearch.html')
@@ -310,10 +318,10 @@ def predictorPageView(request):
     url = "http://d912db94-d8bb-4e07-aafd-02aebb477c22.eastus2.azurecontainer.io/score"
 
     if request.method == 'POST' :
-        state = request.POST['state']
+        state = request.POST['location']
         gender = request.POST['gender']
         specialty = request.POST['specialty']
-        isoppresc = request.POST['isop']
+        isoppresc = request.POST['bOpioid']
     
     payload = json.dumps({  
     
@@ -348,9 +356,10 @@ def predictorPageView(request):
     for item in items :
         mydict[iCount] = math.trunc(items[item]*items[item]*items[item])
     new = str(mydict[0])
-    print(mydict)
+    
     context = {
         "test" : new
     }
+
+    return render(request, 'OpiodPages/predictordisplay.html', context)
     
-    return render(request, 'something,html', context)
