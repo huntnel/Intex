@@ -1,5 +1,7 @@
 {% load static %}
+{% load templatetags %}
 {% block content %}
+{% if pre.npi != None %}
 <table style="margin-left:auto;margin-right:auto;width: 70%;">
     <tr>
         <td></td>
@@ -23,12 +25,32 @@
         <td>{{pre.specialty}}</td>
         <td>{{pre.isopioidprescriber}}</td>
         <td>{{pre.totalprescriptions}}</td>
-        <td>{% for cre in credentials.all %}<p>{{cre.credid}}</p>{% endfor %}</td>
-        <td>{% for d in drugs.all %}<p>{{d.drugname}}</p>{% endfor %}</td>
-        <td><form action='{% url 'delete' npi=pre.npi %}' method='POST'>{% csrf_token %}<button type='submit'>Delete</button></form></td>
+        {% for cred in credentials.all %}
+        <td>{{ cred.credid }}</td>
+        {% endfor %}
+        {% for d in triple.all %}
+        <td>{{ d.drug }}</td>
+        {% endfor %}
+        {% comment %} <td>{% for cre in credentials.all %}<p>{{cre.credid}}</p>{% endfor %}</td>
+        <td>{% for t in triple.all %}<p>{{t.drug}}</p>{% endfor %}</td> {% endcomment %}
+        {% if pre.npi != None %}<td><form action='{% url 'delete' npi=pre.npi %}' method='POST'>{% csrf_token %}<button type='submit'>Delete</button></form></td>{% endif %}
     </tr>
     {% endfor %}
-</table> 
+</table>
+{% endif %} 
+{% if pre.npi == None %}
+<table style="margin-left:auto;margin-right:auto;width: 70%;">
+    <tr>
+        <td style="font-weight:bold;">Credentials</td>
+    </tr>
+    {% for pre in prescribers %}
+    <tr>
+        <td>{{pre.npi}}</td>
+    </tr>
+    {% endfor %}
+    </tr>
+</table>
+{% endif %} 
 {% comment %} <table style="margin-left:auto;margin-right:auto;width: 50%;">
     <tr>
         <td style="font-weight:bold;"></td>
