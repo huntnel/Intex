@@ -1,0 +1,11 @@
+<form method='POST' action='{% url 'updateit' %}'>
+    {% csrf_token %}
+    {% for e in edit %}
+        <p>{{e.fname}} {{e.lname}}</p>
+        <p>{{e.totalprescriptions}}</p>
+        <input type='hidden' value='{{ e.npi }}' name="npihidden">
+    {% endfor %}
+    <label for='updatenumber'>What is the new amount of total prescriptions?</label>
+    <input name='updatenumber' id='updatenumber' type='number' default=0>
+    <button type='submit'>Update</button>
+</form>
