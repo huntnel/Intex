@@ -5,7 +5,11 @@ from django.db import connection
 
 # Create your views here.
 import json
+<<<<<<< HEAD
 
+=======
+from pip._vendor import requests 
+>>>>>>> ee6021cb33f7dd3df338b63db3fe5c508ad6f9d7
 
 def test(request) :
     data = Drug.objects.filter(isopioid = True)
@@ -27,7 +31,15 @@ def analysis3PageView(request):
     return render(request, 'OpiodPages/analysis3.html')
 
 def analysisLandingView(request):
-    return render(request, 'OpiodPages/analysislanding.html')
+    credentials = Credential.objects.all() 
+    locations = State.objects.all()
+    prescriber = pd_prescriber.objects.all()
+    context = {
+        "Credentials": credentials,
+        "Locations" : locations,
+        "Prescriber" : prescriber,
+    }   
+    return render(request, 'OpiodPages/analysislanding.html', context)
 
 def drugSearchView(request):
     return render(request, 'OpiodPages/drugsearch.html')
@@ -198,12 +210,28 @@ def prescriberFindPageView(request) :
     sCredentials = request.GET['credentials']
     sSpecialty = request.GET['specialty']
     sCred = dictCreds.get(sCredentials)
+    print(sCred)
     if (sFirst == '') :
         if (sLast == '') : 
             if (sGender == '') :
                 if (sLocation == '') :
                     if (sSpecialty == '') :
-                        data = Prescriber_Credential.objects.filter(credid=sCred)
+                        # filter = Prescriber_Credential.objects.filter(credid=sCred)
+                        # print('Here is the filter:')
+                        # print(filter)
+                        # for iCount in range(0, len(filter)) :
+                        #     print('Here is the loop filter:')
+                        #     print(filter[iCount].npi)
+                        #     sSplit = str(filter[iCount].npi)
+                        #     print("Here is the split data")
+                        #     sWord = sSplit.split()
+                        #     sWord1 = sWord[0]
+                        #     sWord2 = sWord[1]
+                        #     print(sWord)
+                        #     print(sWord[0])
+                        #     data = pd_prescriber.objects.filter(fname=sWord1, lname=sWord2)
+                        
+                        data = Prescriber_Credential.objects.select_related('npi__state').get(credid=sCred)
                     else :
                         data = pd_prescriber.objects.filter(specialty = sSpecialty)
                         for iCount in range(0, len(data)) :
@@ -233,8 +261,8 @@ def prescriberFindPageView(request) :
         if (sGender == '' or sLocation == '' or sSpecialty == '') :
             data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast)
             for iCount in range(0, len(data)) :
-                data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
-                data3 = Triple.objects.filter(pd_prescriber=data[iCount].npi)
+                data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi).only("credid")
+                data3 = Triple.objects.filter(pd_prescriber=data[iCount].npi).only("drug")
 
         else :
             data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast, gender=sGender, state=sLocation, specialty=sSpecialty)
@@ -245,7 +273,7 @@ def prescriberFindPageView(request) :
                     lstcred1.append(lstcred[iCount])
                 oDrug = Triple.objects.filter(pd_prescriber=data[iCount].npi)
                 lstdrug.append(oDrug.drug)
-    print(data3)
+    print(data)
     if data.count() > 0 :
         context = {
                 'prescribers' : data,
@@ -310,10 +338,10 @@ def predictorPageView(request):
     url = "http://d912db94-d8bb-4e07-aafd-02aebb477c22.eastus2.azurecontainer.io/score"
 
     if request.method == 'POST' :
-        state = request.POST['state']
+        state = request.POST['location']
         gender = request.POST['gender']
         specialty = request.POST['specialty']
-        isoppresc = request.POST['isop']
+        isoppresc = request.POST['bOpioid']
     
     payload = json.dumps({  
     
@@ -348,8 +376,85 @@ def predictorPageView(request):
     for item in items :
         mydict[iCount] = math.trunc(items[item]*items[item]*items[item])
     new = str(mydict[0])
-    print(mydict)
+    
     context = {
         "test" : new
     }
+
+    return render(request, 'OpiodPages/predictordisplay.html', context)
     
+def recommenderPageView(request): 
+    if request.method == 'POST' :
+        npi = request.POST['npi']
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        state = request.POST['state']
+        gender = request.POST['gender']
+        specialty = request.POST['specialty']
+        isoppresc = request.POST['isop']
+        totpresc = int(request.POST['total'])
+        totpresc = totpresc/totpresc/totpresc
+    
+    url = "http://65a45df2-2b8f-4b35-a262-d56b3933e309.eastus2.azurecontainer.io/score"
+    payload = json.dumps({
+    "Inputs": {
+        "input1": [
+        {
+            "prescriberid": npi,
+            "drugname": "LANTUS.SOLOSTAR",
+            "Cuberoot(qty)": 3.6593057100229713
+        }
+        ],
+        "WebServiceInput0": [
+        {
+            "npi": npi,
+            "fname": fname,
+            "lname": lname,
+            "gender": gender,
+            "state": state,
+            "specialty": specialty,
+            "isopioidprescriber": isoppresc,
+            "Cuberoot(totalprescriptions)": totpresc
+        }
+        ],
+        "WebServiceInput1": [
+        {
+            "drugname": "ABILIFY",
+            "isopioid": "False"
+        }
+        ]
+    },
+    "GlobalParameters": {}
+    })
+    headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ry7SQKtAr9CuX3mtzEdgEnaNoZfF496f'
+    }
+    response = requests.request("POST", url, headers=headers, data=payload)
+    json_data = json.loads(response.text)
+    
+    items = (json_data['Results']['WebServiceOutput0'][0])
+   
+    iCount = 0
+    mydict = {}
+    print("Total Prescriptions: ")
+    for item in items :
+        mydict[iCount] = items[item]
+        iCount += 1
+    
+    rec1 = mydict[0]
+    rec2 = mydict[1]
+    rec3 = mydict[2]
+    rec4 = mydict[3]
+    rec5 = mydict[4]
+    
+    print(mydict)
+    context = {
+        "rec1" : rec1,
+        "rec2" : rec2,
+        "rec3" : rec3,
+        "rec4" : rec4,
+        "rec5" : rec5,
+    }
+    
+    return render(request, 'recommenderdisplay.html', context)

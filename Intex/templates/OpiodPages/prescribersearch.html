@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-
 <!-- Block for Hero Image-->
 {% block hero %}{% static 'otherPages/images/background/3.jpg' %}{% endblock %}
-
 <!--Block for Body content-->
 {% block content %}
-
 <!-- Section -->
 <section class="section style-three pb-0">
   <div class="container">
@@ -19,15 +16,12 @@
           <form name="contact_form" class="default-form contact-form" action="{% url 'prescriberfind' %}" method="GET">
             {% csrf_token %}
             <div class="row">
-
               <!--Start First Column-->
               <div class="col-md-6">
-
                 <!--FirstName-->
                 <div class="form-group">
                   <input class="form-control" type="text" name="firstName" id="firstName" placeholder="First Name">
                 </div>
-
                 <!--Credentials-->
                 <div class="form-group">
                   <select class="form-control" name="credentials" id="credentials">
@@ -37,7 +31,6 @@
                     {% endfor %}
                   </select>
                 </div>
-
                 <!--Gender-->
                 <div class="form-group">
                   <select class="form-control" name="gender" id="gender">
@@ -48,15 +41,12 @@
                 </div>
                 <!--End Gender-->
               </div>
-
               <!--Start Column 2-->
               <div class="col-md-6">
-
                 <!--Last Name -->
                 <div class="form-group" for="lastName">
                   <input class="form-control" type="text"  name="lastName" id="lastName" placeholder="Last Name">
                 </div>
-
                 <!--Location-->
                 <div class="form-group">
                   <select class="form-control" name="location" id="location">
@@ -66,15 +56,12 @@
                     {% endfor %}
                   </select>
                 </div>
-
                 <!--Specialty-->
                 <div class="form-group" for="lastName">
                   <input class="form-control" type="text"  name="specialty" id="specialty" placeholder="Specialty">
                 </div>
-
               </div>
               <div class="col-md-12">
-                
                 <div class="form-group text-center">
                   <button type="submit" class="btn-style-one">search</button>
                 </div>
@@ -82,15 +69,12 @@
             </div>
           </form>
           <!--End form -->
-
           <!--Work on styling this **************-->
-          
           <form action="{% url 'addprescriber' %}" method="GET">
             <table style='width:100%; text-align: center;'>
               <tr><td><button type='submit'>Add Prescriber</button></td></tr>
             </table>
           </form>
-
         </div>
       </div>
       <div class="col-lg-6 mb-4 mb-lg-0 order-0 order-lg-1">
@@ -104,6 +88,5 @@
   </div>
 </section>
 <!-- End Section -->
-
 {% endblock %}
 <!--End Block Body content-->
