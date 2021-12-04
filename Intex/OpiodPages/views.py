@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Drug, pd_prescriber, Credential, State, Prescriber_Credential
+from .models import Drug, Triple, pd_prescriber, Credential, State, Prescriber_Credential
 from django.db import connection
 
 # Create your views here.
@@ -183,6 +183,7 @@ def prescriberFindPageView(request) :
         ' ' : 1
     }
     data2 = ''
+    data3 = ''
     sFirst = request.GET['firstName']
     sLast = request.GET['lastName']
     sGender = request.GET['gender']
@@ -200,6 +201,9 @@ def prescriberFindPageView(request) :
                         data = Prescriber_Credential.objects.filter(credid=sCred)
                     else :
                         data = pd_prescriber.objects.filter(specialty = sSpecialty)
+                        for iCount in range(0, len(data)) :
+                            data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
+                            data3 = Triple.objects.filter(pd_prescriber_id=data[iCount].npi)
                 else :
                     data = pd_prescriber.objects.filter(state=sLocation)
             else :
@@ -208,17 +212,25 @@ def prescriberFindPageView(request) :
             data = pd_prescriber.objects.filter(lname = sLast)
     elif (sLast == '') :
         data = pd_prescriber.objects.filter(fname=sFirst)
+        for iCount in range(0, len(data)) :
+            data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
+            data3 = Triple.objects.filter(pd_prescriber_id=data[iCount].npi)
     elif (sLast != '') :
         if (sGender == '' or sLocation == '' or sSpecialty == '') :
             data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast)
+            for iCount in range(0, len(data)) :
+                data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
+                data3 = Triple.objects.filter(pd_prescriber_id=data[iCount].npi)
         else :
             data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast, gender=sGender, state=sLocation, specialty=sSpecialty)
             for iCount in range(0, len(data)) :
                 data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
+                data3 = Triple.objects.filter(pd_prescriber_id=data[iCount].npi)
     if data.count() > 0 :
         context = {
                 'prescribers' : data,
-                'credentials' : data2
+                'credentials' : data2,
+                'drugs' : data3
             }
         return render(request, 'OpiodPages/prescriberdisplay.html', context)
     else :

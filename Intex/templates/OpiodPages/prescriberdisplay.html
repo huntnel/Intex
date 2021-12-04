@@ -10,6 +10,8 @@
         <td style="font-weight:bold;">Specialty</td>
         <td style="font-weight:bold;">Do they prescribe opioids?</td>
         <td style="font-weight:bold;">Number of drugs prescribed</td>
+        <td style="font-weight:bold;">Credentials</td>
+        <td style="font-weight:bold;">Drugs</td>
         <td></td>
     </tr>
     {% for pre in prescribers %}
@@ -21,11 +23,13 @@
         <td>{{pre.specialty}}</td>
         <td>{{pre.isopioidprescriber}}</td>
         <td>{{pre.totalprescriptions}}</td>
+        <td>{% for cre in credentials.all %}<p>{{cre.credid}}</p>{% endfor %}</td>
+        <td>{% for d in drugs.all %}<p>{{d.drugname}}</p>{% endfor %}</td>
         <td><form action='{% url 'delete' npi=pre.npi %}' method='POST'>{% csrf_token %}<button type='submit'>Delete</button></form></td>
     </tr>
     {% endfor %}
 </table> 
-<table style="margin-left:auto;margin-right:auto;width: 50%;">
+{% comment %} <table style="margin-left:auto;margin-right:auto;width: 50%;">
     <tr>
         <td style="font-weight:bold;"></td>
     </tr>
@@ -34,7 +38,7 @@
         <td>Credentials: {{cre.credid}}</td>
     </tr>
     {% endfor %}
-</table> 
+</table>  {% endcomment %}
 <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search Again</button>
 {% comment %} <form action="{% url 'drugsearch' %}" method="GET"><button type="submit">Search for a drug</button> {% endcomment %}
 {% endblock %}
