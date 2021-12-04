@@ -7,6 +7,7 @@
 <!--Block for Body content-->
 {% block content %}
 <form action="{% url 'prescriberfind' %}" method="GET">
+  {% csrf_token %}
   <table style="width: 80%;">
       <tr>
           <td>
@@ -20,22 +21,24 @@
           <td>
               <label for="gender">Gender</label>
               <select name="gender" id="gender">
-                  <option value="M">Male</option>
-                  <option value="F">Female</option>
+                <option value="">None</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
               </select>
           </td>
           <td>
               <label for="credentials">Credentials</label>
               <select name="credentials" id="credentials">
+                <option value="">None</option>
                   {% for cred in Credentials %}
                           <option value="{{ cred.credential }}">{{ cred.credential }}</option>
                       {% endfor %}
-                  <option value="">None</option>
               </select>
           </td>
           <td>
               <label for="location">Location</label>
               <select name="location" id="location">
+                <option value="">None</option>
                   {% for loc in Locations %}
                       <option value="{{ loc.id }}">{{ loc.state }}</option>
                       {% endfor %}

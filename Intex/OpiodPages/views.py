@@ -1,8 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Drug, pd_prescriber, Credential, State, Prescriber_Credential
+from django.db import connection
 
 # Create your views here.
+
+def test(request) :
+    data = Drug.objects.filter(isopioid = True)
+    context = {
+        'Drugs' : data
+    }
+    return render(request, 'OpiodPages/test.html', context)
 
 def indexPageView(request):
     return render(request, 'OpiodPages/index.html')
@@ -23,18 +31,27 @@ def drugSearchView(request):
     return render(request, 'OpiodPages/drugsearch.html')
 
 def drugFindPageView(request):
+    data = ''
     sName = request.GET['drugName']
     sName = sName.upper()
     bOpioid = request.GET['bOpioid']
-    print(bOpioid)
-    data = Drug.objects.filter(drugname=sName, isopioid=bOpioid)
-
-    if data.count() > 0:
+    context = 0
+    if (sName == '') :
+        if (bOpioid == 'True') :
+            data = Drug.objects.filter(isopioid=True)
+        else :
+            data = Drug.objects.filter(isopioid=False)
         context = {
             "drugs" : data
         }
+    else :
+        data = Drug.objects.filter(drugname=sName, isopioid=bOpioid)
+        context = {
+            "drugs" : data
+        }
+    if data.count() > 0 :
         return render(request, 'OpiodPages/displaydrugs.html', context)
-    else:
+    else :
         return render(request, 'OpiodPages/notfound.html')
 
 def educationLandingView(request):
@@ -163,27 +180,47 @@ def prescriberFindPageView(request) :
         'RPA-C' : 108,
         'RPH' : 109,
         'WHNP' : 110,
+        ' ' : 1
     }
+    data2 = ''
     sFirst = request.GET['firstName']
     sLast = request.GET['lastName']
     sGender = request.GET['gender']
     sGender = sGender.upper()
     sLocation = request.GET['location']
     sCredentials = request.GET['credentials']
+    sSpecialty = request.GET['specialty']
     sCred = dictCreds.get(sCredentials)
     print(sCredentials)
-    sSpecialty = request.GET['specialty']
-
-    data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast, gender=sGender, state=sLocation)
-    if data.count() > 0:
-        data2 = Prescriber_Credential.objects.filter(npi=sCred)
-        print(data2)
+    if (sFirst == '') :
+        if (sLast == '') : 
+            if (sGender == '') :
+                if (sLocation == '') :
+                    if (sSpecialty == '') :
+                        data = Prescriber_Credential.objects.filter(credid=sCred)
+                    else :
+                        data = pd_prescriber.objects.filter(specialty = sSpecialty)
+                else :
+                    data = pd_prescriber.objects.filter(state=sLocation)
+            else :
+                data = pd_prescriber.objects.filter(gender=sGender)
+        else :
+            data = pd_prescriber.objects.filter(lname = sLast)
+    elif (sLast == '') :
+        data = pd_prescriber.objects.filter(fname=sFirst)
+    elif (sLast != '') :
+        data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast)
+    else :
+        data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast, gender=sGender, state=sLocation, specialty=sSpecialty)
+        for iCount in range(0, len(data)) :
+            data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
+    if data.count() > 0 :
         context = {
                 'prescribers' : data,
                 'credentials' : data2
             }
         return render(request, 'OpiodPages/prescriberdisplay.html', context)
-    else : 
+    else :
         return render(request, 'OpiodPages/notfound.html')
 
 def recommenderPageView(request):

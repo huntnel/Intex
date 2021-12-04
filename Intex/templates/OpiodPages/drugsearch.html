@@ -7,6 +7,7 @@
 <!--Block for Body content-->
 {% block content %}
               <form action="{% url 'drugfind' %}" method="GET">
+                {% csrf_token %}
                 <table style="width: 80%;">
                     <tr>
                         <td>
