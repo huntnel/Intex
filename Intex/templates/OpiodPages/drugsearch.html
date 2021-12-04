@@ -8,7 +8,7 @@
 {% block content %}
 
 
-
+{% comment %} 
 <!--***********************************88888-->
 <section class="section contact">
   <!-- container start -->
@@ -20,43 +20,42 @@
       </div>
       <div class="col-lg-8 col-md-7">
         <div class="contact-form">
-          <!-- contact form start -->
-          <form action="{% url 'drugfind' %}" method="GET" class="row">
-            <!-- name -->
-            <div class="col-lg-6 addFlex">
-              <input type="text" name="name" id="name" class="form-control main" placeholder="Name of Drug" required>
-            </div>
-            <!-- isOpioid -->
-            <div class="col-lg-6 addFlex">
-              <h6>Is it an opioid?</h6>
-              <select name="bOpioid" id="bOpioid" class="formatInput" required>
-                <option value="True">Yes</option>
-                <option value="False">No</option>
-              </select>
-              <!-- submit button -->
-              <div class="col-md-6 text-right">
-                <button class="btn btn-style-one" type="submit">Search</button>
-              </div>
-            </div>
-          </form>
-          <!-- contact form end -->
+          <!-- contact form start --> {% endcomment %}
+<form action="{% url 'drugfind' %}" method="GET">
+    <table style="width: 80%;">
+        <tr>
+            <td>
+                <label for="drugName">Drug Name:</label>
+                <input type="text" name="drugName" id="drugName">
+            </td>
+            <td>
+                <label for="bOpioid">Is the drug an opioid?</label>
+                <select name="bOpioid" id="bOpioid">
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
+                </select>
+            </td>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+        <tr>
+</form>
+          {% comment %} <!-- contact form end -->
         </div>
       </div>
     </div>
   </div>
   <!-- container end -->
-</section> 
+</section>  {% endcomment %}
 <!--====  End of Contact Form  ====-->
 <!--***********************************88888-->
 
-
+{% comment %} 
               <form action="{% url 'drugfind' %}" method="GET">
-<<<<<<< HEAD
                 {% csrf_token %}
                 <table style="width: 80%;">
-=======
                 <table class="formTable">
->>>>>>> 0d6524ca15cdf1d5a84a38e8717b2e9b5e85bfc7
+
                     <tr>
                         <td>
                           <div class="media-body">
@@ -77,10 +76,10 @@
                             <button type="submit">Submit</button>
                         </td>
                     <tr>
-              </form>
+              </form> {% endcomment %}
             
 <!-- Contact Section -->
-<section class="blog-section style-four section">
+{% comment %} <section class="blog-section style-four section">
     <div class="container">
       <div class="row">
         <div class="col-lg-9">
@@ -216,7 +215,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> {% endcomment %}
   <!-- End Contact Section -->
 {% endblock %}
 <!--End Block Body content-->
