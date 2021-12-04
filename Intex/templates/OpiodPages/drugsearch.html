@@ -37,6 +37,7 @@
                 <!--Is the drug an opioid? -->
                 <div class="form-group">
                   <select class="form-control" name="bOpioid" id="bOpioid">
+                    <option value="">Is the drug an opioid?</option>
                     <option value="True">Yes</option>
                     <option value="False">No</option>
                   </select>
@@ -68,7 +69,7 @@
 <!-- End Section -->
 
 
-<form action="{% url 'drugfind' %}" method="GET">
+{% comment %} <form action="{% url 'drugfind' %}" method="GET">
     <table style="width: 80%;">
         <tr>
             <td>
@@ -86,7 +87,7 @@
                 <button type="submit">Submit</button>
             </td>
         <tr>
-</form>
+</form> {% endcomment %}
 
 
 {% endblock %}

@@ -31,7 +31,7 @@
                 <!--Credentials-->
                 <div class="form-group">
                   <select class="form-control" name="credentials" id="credentials">
-                    <option value="">None</option>
+                    <option value="">Credentials</option>
                     {% for cred in Credentials %}
                         <option value="{{ cred.credential }}">{{ cred.credential }}</option>
                     {% endfor %}
@@ -41,7 +41,7 @@
                 <!--Gender-->
                 <div class="form-group">
                   <select class="form-control" name="gender" id="gender">
-                    <option value="">None</option>
+                    <option value="">Gender</option>
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                   </select>
@@ -60,7 +60,7 @@
                 <!--Location-->
                 <div class="form-group">
                   <select class="form-control" name="location" id="location">
-                    <option value="">None</option>
+                    <option value="">State</option>
                     {% for loc in Locations %}
                       <option value="{{ loc.id }}">{{ loc.state }}</option>
                     {% endfor %}
