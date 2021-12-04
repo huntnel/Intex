@@ -28,10 +28,10 @@
     </tr>
     {% for cre in credentials.all %}
     <tr>
-        <td>{{cre.npi}}</td>
+        <td>{{cre.credid}}</td>
     </tr>
     {% endfor %}
 </table> 
-<form action="{% url 'prescribersearch' %}" method="GET"><button type="submit">Search Again</button>
+<form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search Again</button>
 {% comment %} <form action="{% url 'drugsearch' %}" method="GET"><button type="submit">Search for a drug</button> {% endcomment %}
 {% endblock %}
