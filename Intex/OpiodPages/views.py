@@ -248,7 +248,28 @@ def createPrescriberPageView(request) :
         new_prescriper.specialty = request.POST.get('specialty')
         new_prescriper.isopioidprescriber = request.POST.get('bPrescriber')
         new_prescriper.totalprescriptions = request.POST.get('total')
-        new_prescriper.state = request.POST.get('location')
+        new_prescriper.state = State.objects.get(state=request.POST.get('location'))
         new_prescriper.save()
         
+    return render(request, 'OpiodPages/prescribersearch.html')
+
+def deletePageView(request, npi) :
+    if request.method == 'POST':
+        oDelete = pd_prescriber.objects.get(npi=npi)
+        oDelete.delete()
+    return render(request, 'OpiodPages/prescribersearch.html')
+
+def editPageView(request, npi) :
+    data = pd_prescriber.objects.filter(npi=npi)
+    context = {
+        "edit" : data
+    }
+    return render(request, 'OpiodPages/edit.html', context)
+
+def updatePageView(request) :
+    if request.method == 'POST':
+        iUpdateID = request.POST.get('npihidden')
+        oUpdate = pd_prescriber.objects.get(npi=iUpdateID)
+        oUpdate.totalprescriptions = request.POST.get('updatenumber')
+        oUpdate.save()
     return render(request, 'OpiodPages/prescribersearch.html')
