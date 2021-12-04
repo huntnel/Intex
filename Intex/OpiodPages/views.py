@@ -4,6 +4,8 @@ from .models import Drug, Triple, pd_prescriber, Credential, State, Prescriber_C
 from django.db import connection
 
 # Create your views here.
+import json
+import requests
 
 def test(request) :
     data = Drug.objects.filter(isopioid = True)
@@ -182,6 +184,10 @@ def prescriberFindPageView(request) :
         'WHNP' : 110,
         ' ' : 1
     }
+    lstcred = []
+    lstcred1 = []
+    lstdrug = []
+    data= ''
     data2 = ''
     data3 = ''
     sFirst = request.GET['firstName']
@@ -192,7 +198,6 @@ def prescriberFindPageView(request) :
     sCredentials = request.GET['credentials']
     sSpecialty = request.GET['specialty']
     sCred = dictCreds.get(sCredentials)
-    print(sCredentials)
     if (sFirst == '') :
         if (sLast == '') : 
             if (sGender == '') :
@@ -202,35 +207,50 @@ def prescriberFindPageView(request) :
                     else :
                         data = pd_prescriber.objects.filter(specialty = sSpecialty)
                         for iCount in range(0, len(data)) :
-                            data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
-                            data3 = Triple.objects.filter(pd_prescriber_id=data[iCount].npi)
+                            lstcred.append(Prescriber_Credential.objects.filter(npi=data[iCount].npi))
+                            lstdrug.append(Triple.objects.filter(pd_prescriber=data[iCount].npi))
                 else :
                     data = pd_prescriber.objects.filter(state=sLocation)
+                    for iCount in range(0, len(data)) :
+                        lstcred.append(Prescriber_Credential.objects.filter(npi=data[iCount].npi))
+                        lstdrug.append(Triple.objects.filter(pd_prescriber=data[iCount].npi))
             else :
                 data = pd_prescriber.objects.filter(gender=sGender)
+                for iCount in range(0, len(data)) :
+                    lstcred.append(Prescriber_Credential.objects.filter(npi=data[iCount].npi))
+                    lstdrug.append(Triple.objects.filter(pd_prescriber=data[iCount].npi))
         else :
             data = pd_prescriber.objects.filter(lname = sLast)
+            for iCount in range(0, len(data)) :
+                lstcred.append(Prescriber_Credential.objects.filter(npi=data[iCount].npi))
+                lstdrug.append(Triple.objects.filter(pd_prescriber=data[iCount].npi))
     elif (sLast == '') :
         data = pd_prescriber.objects.filter(fname=sFirst)
         for iCount in range(0, len(data)) :
-            data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
-            data3 = Triple.objects.filter(pd_prescriber_id=data[iCount].npi)
+            lstcred.append(Prescriber_Credential.objects.filter(npi=data[iCount].npi))
+            lstdrug.append(Triple.objects.filter(pd_prescriber=data[iCount].npi))
     elif (sLast != '') :
         if (sGender == '' or sLocation == '' or sSpecialty == '') :
             data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast)
             for iCount in range(0, len(data)) :
                 data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
-                data3 = Triple.objects.filter(pd_prescriber_id=data[iCount].npi)
+                data3 = Triple.objects.filter(pd_prescriber=data[iCount].npi)
+
         else :
             data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast, gender=sGender, state=sLocation, specialty=sSpecialty)
             for iCount in range(0, len(data)) :
-                data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
-                data3 = Triple.objects.filter(pd_prescriber_id=data[iCount].npi)
+                oCred = Prescriber_Credential.objects.get(npi=data[iCount].npi)
+                lstcred.append(oCred.credid)
+                for iCount1 in range(0, len(lstcred)) :
+                    lstcred1.append(lstcred[iCount])
+                oDrug = Triple.objects.filter(pd_prescriber=data[iCount].npi)
+                lstdrug.append(oDrug.drug)
+    print(data3)
     if data.count() > 0 :
         context = {
                 'prescribers' : data,
                 'credentials' : data2,
-                'drugs' : data3
+                'triple' : data3
             }
         return render(request, 'OpiodPages/prescriberdisplay.html', context)
     else :
@@ -285,3 +305,51 @@ def updatePageView(request) :
         oUpdate.totalprescriptions = request.POST.get('updatenumber')
         oUpdate.save()
     return render(request, 'OpiodPages/prescribersearch.html')
+
+def predictorPageView(request):
+    url = "http://d912db94-d8bb-4e07-aafd-02aebb477c22.eastus2.azurecontainer.io/score"
+
+    if request.method == 'POST' :
+        state = request.POST['state']
+        gender = request.POST['gender']
+        specialty = request.POST['specialty']
+        isoppresc = request.POST['isop']
+    
+    payload = json.dumps({  
+    
+    "Inputs": {
+        "WebServiceInput0": [
+        {
+            "state": state,
+            "gender": gender,
+            "specialty": specialty,
+            "isopioidprescriber": isoppresc,
+            "Cuberoot(totalprescriptions)": 5.180101467380292
+        }
+        ]
+    },
+    "GlobalParameters": {}
+    })
+    headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer MVwu3oumhzszRBfTwWb9aur5UZYac6hm'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    json_data = json.loads(response.text)
+
+    items = (json_data['Results']['WebServiceOutput0'][0])
+    
+    iCount = 0
+    mydict = {}
+    import math 
+    print("Total Prescriptions: ")
+    for item in items :
+        mydict[iCount] = math.trunc(items[item]*items[item]*items[item])
+    new = str(mydict[0])
+    print(mydict)
+    context = {
+        "test" : new
+    }
+    

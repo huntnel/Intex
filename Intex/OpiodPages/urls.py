@@ -22,4 +22,5 @@ urlpatterns = [
     path("edit/<int:npi>", editPageView, name="edit"),
     path("delete/<int:npi>", deletePageView, name="delete"),
     path("updateit/", updatePageView, name="updateit"),
+    path("predictor/", predictorPageView, name="predictor"),
 ]
