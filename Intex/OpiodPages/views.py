@@ -209,11 +209,12 @@ def prescriberFindPageView(request) :
     elif (sLast == '') :
         data = pd_prescriber.objects.filter(fname=sFirst)
     elif (sLast != '') :
-        data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast)
-    else :
-        data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast, gender=sGender, state=sLocation, specialty=sSpecialty)
-        for iCount in range(0, len(data)) :
-            data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
+        if (sGender == '' or sLocation == '' or sSpecialty == '') :
+            data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast)
+        else :
+            data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast, gender=sGender, state=sLocation, specialty=sSpecialty)
+            for iCount in range(0, len(data)) :
+                data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
     if data.count() > 0 :
         context = {
                 'prescribers' : data,
