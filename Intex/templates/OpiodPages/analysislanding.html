@@ -3,72 +3,7 @@
 {% block pageTitle %}{% endblock %}
 {% block content %}
 
-<!--Start Video Gallery Section-->
-<section class="video-gallery">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="section-title text-center">
-          <h3>Opioid
-            <span>Referencial Material</span>
-          </h3>
-          
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6">
-        <div class="video-gallery-item">
-          <div class="image-holder">
-            <img loading="lazy"  width="600"
-            height="337"
-            style="width: 600px; height: 300px;" src="{% static 'otherPages/images/gallery/americapills.png' %}" class="img-fluid" alt="video-gallery">
-            <a data-fancybox href="{% url 'analysislanding' %}"><i class="fa fa-play"></i></a>
-          </div>
-          <h3>The Facts on America's Opioid Epidemic</h3>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6">
-        <div class="video-gallery-item">
-          <div class="image-holder">
-            <img loading="lazy" width="600"
-            height="337"
-            style="width: 600px; height: 300px;" src="{% static 'otherPages/images/gallery/causesaddiction.jpg' %}" class="img-fluid" alt="video-gallery">
-            <a data-fancybox href="https://www.youtube.com/watch?v=V0CdS128-q4">
-              <i class="fa fa-play"></i>
-            </a>
-          </div>
-          <h3>What causes opioid addiction</h3>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6">
-        <div class="video-gallery-item">
-          <div class="image-holder">
-            <img loading="lazy" width="600"
-            height="337"
-            style="width: 600px; height: 300px;" src="{% static 'otherPages/images/gallery/overdose.jpg' %}" class="img-fluid" alt="video-gallery">
-            <a data-fancybox href="https://www.youtube.com/watch?v=TSzHCCsjsHY">
-              <i class="fa fa-play"></i>
-            </a>
-          </div>                 
-          <h3>Recognizing and Responding to an Opioid Overdose Emergency</h3>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6">
-        <div class="video-gallery-item">
-          <div class="image-holder">
-            <img loading="lazy"  width="600"
-            height="337"
-            style="width: 600px; height: 300px;" src="{% static 'otherPages/images/gallery/understand.jpg' %}" class="img-fluid" alt="video-gallery">
-            <a data-fancybox href="https://www.youtube.com/watch?v=Hgn7MJjMfkk">
-              <i class="fa fa-play"></i>
-            </a>
-          </div>
-          <h3>Understanding Substance Use Disorder</h3>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!--End Video Gallery Section-->
+<h1>Predictive Analysis</h1>
 
 <section class="video-gallery">
     <div class="container">
@@ -123,6 +58,103 @@
     </div>
   </section>
 
+
+
+  <!-- Section -->
+<section class="section style-three pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 order-1 order-lg-0">
+        <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
+          <div class="section-title">
+            <h3>Predictive <span>Analysis</span></h3>
+          </div>
+          <p>Predict Total Number Of Prescriptions Prescribed</p>
+
+<!--Start form-->
+          <form name="contact_form" class="default-form contact-form" action="{% url 'predictor' %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+              <!--Start First Column-->
+              <div class="col-md-6">
+                <!-- location -->
+                <div class="form-group">
+                  <select class="form-control" name="location" id="location">
+                    <option value="">State</option>
+                    {% for loc in Locations %}
+                      <option value="{{ loc.id }}">{{ loc.state }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <!-- Gender -->
+                <div class="form-group">
+                  <select class="form-control" name="gender" id="gender">
+                    <option value="">Gender</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                  </select>
+                </div>
+                <!--Gender-->
+                <!-- Specialty -->
+                {% comment %} <div class="form-group" for="specialty">
+                  <input class="form-control" type="text"  name="specialty" id="specialty" placeholder="Specialty">
+                </div> {% endcomment %}
+                <!--End Specialty-->
+              </div>
+  <!--******************Below only isopiod**********************************************************************************-->
+              <!--Start Column 2-->
+              <div class="col-md-6">
+                <!--Is the drug an opioid? -->
+                <div class="form-group">
+                  <select class="form-control" name="bOpioid" id="bOpioid">
+                    <option value="">Is the drug an opioid?</option>
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
+                  </select>
+                </div>
+                <!-- Specialty -->
+                <div class="form-group" for="specialty">
+                  <input class="form-control" type="text"  name="specialty" id="specialty" placeholder="Specialty">
+                </div>
+                <!--Get rid of this-->
+                {% comment %} <div class="form-group" for="lastName">
+                  <input class="form-control" type="text"  name="specialty" id="specialty" placeholder="Specialty">
+                </div> {% endcomment %}
+              </div>
+              <div class="col-md-12">
+                <div class="form-group text-center">
+                  <button type="submit" class="btn-style-one">search</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!--End form -->
+        </div>
+      </div>
+      <div class="col-lg-6 mb-4 mb-lg-0 order-0 order-lg-1">
+        <div class="appointment-image-holder ml-0 ml-lg-4">
+          <figure>
+            <img loading="lazy" class="w-100" src="{% static 'otherPages/images/background/appointment.jpg' %}" alt="Appointment">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Section -->
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} 
   <!-- Predictor Form -->
   <form name="form" method="post" action="{% url 'predictor' %}">
     {% csrf_token %}
@@ -160,5 +192,5 @@
       </select>
     </div>
     <button type="submit">Submit</button>
-</form>
+</form> {% endcomment %}
 {% endblock %}
