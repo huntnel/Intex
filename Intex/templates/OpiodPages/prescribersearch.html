@@ -82,6 +82,8 @@
             </div>
           </form>
           <!--End form -->
+
+          <!--Work on styling this **************-->
           
           <form action="{% url 'addprescriber' %}" method="GET">
             <table style='width:100%; text-align: center;'>
@@ -102,65 +104,6 @@
   </div>
 </section>
 <!-- End Section -->
-
-{% comment %} 
-
-<form action="{% url 'prescriberfind' %}" method="GET">
-  {% csrf_token %}
-  <table style="width: 80%;">
-      <tr>
-          <td>
-              <label for="firstName">First Name:</label>
-              <input type="text" name="firstName" id="firstName">
-          </td>
-          <td>
-              <label for="lastName">Last Name:</label>
-              <input type="text" name="lastName" id="lastName">
-          </td>
-          <td>
-              <label for="gender">Gender</label>
-              <select name="gender" id="gender">
-                <option value="">None</option>
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-              </select>
-          </td>
-          <td>
-              <label for="credentials">Credentials</label>
-              <select name="credentials" id="credentials">
-                <option value="">None</option>
-                  {% for cred in Credentials %}
-                          <option value="{{ cred.credential }}">{{ cred.credential }}</option>
-                      {% endfor %}
-              </select>
-          </td>
-          <td>
-              <label for="location">Location</label>
-              <select name="location" id="location">
-                <option value="">None</option>
-                  {% for loc in Locations %}
-                      <option value="{{ loc.id }}">{{ loc.state }}</option>
-                      {% endfor %}
-              </select>
-          </td>
-          <td>
-              <label for="specialty">Specialty:</label>
-              <input type="text" name="specialty" id="specialty">
-          </td>
-          <td>
-              <button type="submit">Submit</button>
-          </td>
-      <tr>
-</form>
-<table style="margin-left:auto;margin-right:auto;width: 50%;">
-  <tr>
-      <td style="font-weight:bold;"></td>
-      <td style="font-weight:bold;"></td>
-  </tr>
-  <tr>
-      <td></td>
-  </tr>
-</table>  {% endcomment %}
 
 {% endblock %}
 <!--End Block Body content-->
