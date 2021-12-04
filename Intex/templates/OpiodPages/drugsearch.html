@@ -7,20 +7,67 @@
 <!--Block for Body content-->
 {% block content %}
 
-
-{% comment %} 
-<!--***********************************88888-->
-<section class="section contact">
-  <!-- container start -->
-  <h3 class="centerText" >Search By Drug</h3>
+<!-- Section -->
+<section class="section style-three pb-0">
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 col-md-5 ">
-        
+      <div class="col-lg-6 order-1 order-lg-0">
+        <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
+          <div class="section-title">
+            <h3>Search By <span>Drug</span></h3>
+          </div>
+
+          <!--Start Form-->
+          <form name="contact_form" class="default-form contact-form" action="{% url 'drugfind' %}" method="GET">
+            {% csrf_token %}
+            <div class="row">
+
+              <!--Start First Column-->
+              <div class="col-md-6">
+
+                <!--Drug Name-->
+                <div class="form-group">
+                  <input class="form-control" type="text" name="drugName" id="drugName" placeholder="Drug Name">
+                </div>
+              </div>
+
+              <!--Start Column 2-->
+              <div class="col-md-6">
+
+                <!--Is the drug an opioid? -->
+                <div class="form-group">
+                  <select class="form-control" name="bOpioid" id="bOpioid">
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
+                  </select>
+                </div>
+
+              </div>
+              <div class="col-md-12">
+                
+                <div class="form-group text-center">
+                  <button type="submit" class="btn-style-one">search</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!--End form -->
+
+        </div>
       </div>
-      <div class="col-lg-8 col-md-7">
-        <div class="contact-form">
-          <!-- contact form start --> {% endcomment %}
+      <div class="col-lg-6 mb-4 mb-lg-0 order-0 order-lg-1">
+        <div class="appointment-image-holder ml-0 ml-lg-4">
+          <figure>
+            <img loading="lazy" class="w-100" src="{% static 'otherPages/images/background/appointment.jpg' %}" alt="Appointment">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Section -->
+
+
 <form action="{% url 'drugfind' %}" method="GET">
     <table style="width: 80%;">
         <tr>
@@ -40,182 +87,7 @@
             </td>
         <tr>
 </form>
-          {% comment %} <!-- contact form end -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- container end -->
-</section>  {% endcomment %}
-<!--====  End of Contact Form  ====-->
-<!--***********************************88888-->
 
-{% comment %} 
-              <form action="{% url 'drugfind' %}" method="GET">
-                {% csrf_token %}
-                <table style="width: 80%;">
-                <table class="formTable">
 
-                    <tr>
-                        <td>
-                          <div class="media-body">
-                            <h3>Search</h3>
-                          </div>
-                          <div class="col-lg-6">
-                            <input type="text" class="form-control main" name="drugName" id="drugName" placeholder="Search Name of Drug" required>
-                          </div>
-                        </td>
-                        <td>
-                            <label for="bOpioid">Is the drug an opioid?</label>
-                            <select name="bOpioid" id="bOpioid">
-                                <option value="True">Yes</option>
-                                <option value="False">No</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button type="submit">Submit</button>
-                        </td>
-                    <tr>
-              </form> {% endcomment %}
-            
-<!-- Contact Section -->
-{% comment %} <section class="blog-section style-four section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-9">
-          <div class="left-side">
-            <div class="item-holder">
-              <div class="image-box">
-                <figure>
-                  <a href="blog-details.html"><img loading="lazy" class="img-fluid" src="images/blog/5.jpg" alt=""></a>
-                </figure>
-              </div>
-              <div class="content-text">
-                <a href="blog-details.html">
-                  <h4>A lesson in Surgery Preparedness - From Hurricane Season</h4>
-                </a>
-                <span>By Donult Trum / 02 January 2020</span>
-                <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Sed porttitor lectus nibh.
-                  Curabitur aliquet quam
-                  id dui posuere blandit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.</p>
-                <div class="link-btn">
-                  <a href="blog-details.html" class="btn-style-one">read more</a>
-                </div>
-              </div>
-            </div>
-            <div class="item-holder">
-              <div class="image-box">
-                <figure>
-                  <a href="blog-details.html"><img loading="lazy" class="img-fluid" src="images/blog/6.jpg" alt=""></a>
-                </figure>
-              </div>
-              <div class="content-text">
-                <a href="blog-details.html">
-                  <h4>To support patients recovery and improve their experiences of care.</h4>
-                </a>
-                <span>By James Anderson / 08 January 2020</span>
-                <p>Quisque velit nisi, pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada.
-                  Nulla porttitor accumsan
-                  tincidunt. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</p>
-                <div class="link-btn">
-                  <a href="blog-details.html" class="btn-style-one">read more</a>
-                </div>
-              </div>
-            </div>
-            <div class="item-holder">
-              <div class="image-box">
-                <figure>
-                  <a href="blog-details.html"><img loading="lazy" class="img-fluid" src="images/blog/7.jpg" alt=""></a>
-                </figure>
-              </div>
-              <div class="content-text">
-                <a href="blog-details.html">
-                  <h4>A lesson in Surgery Preparedness - From Hurricane Season</h4>
-                </a>
-                <span>By Garry Moe / 12 January 2020</span>
-                <p>Sed porttitor lectus nibh. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
-                  Quisque velit nisi, pretium
-                  ut lacinia in, elementum id enim. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
-                </p>
-                <div class="link-btn">
-                  <a href="blog-details.html" class="btn-style-one">read more</a>
-                </div>
-              </div>
-            </div>
-            <div class="item-holder">
-              <div class="image-box">
-                <figure>
-                  <a href="blog-details.html"><img loading="lazy" class="img-fluid" src="images/blog/8.jpg" alt=""></a>
-                </figure>
-              </div>
-              <div class="content-text">
-                <a href="blog-details.html">
-                  <h4>To support patients recovery and improve their experiences of care.</h4>
-                </a>
-                <span>By Luis Morris / 25 January 2020</span>
-                <p>Proin eget tortor risus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.
-                  Praesent sapien massa, convallis
-                  a pellentesque nec, egestas non nisi. Vivamus suscipit tortor eget felis porttitor volutpat.</p>
-                <div class="link-btn">
-                  <a href="blog-details.html" class="btn-style-one">read more</a>
-                </div>
-              </div>
-            </div>
-  
-            
-            <div class="styled-pagination">
-              <ul>
-                <li><a class="prev" href="blog.html"><span class="fas fa-angle-left" aria-hidden="true"></span></a></li>
-                <li><a href="blog.html" class="active">1</a></li>
-                <li><a href="blog.html">2</a></li>
-                <li><a href="blog.html">3</a></li>
-                <li><a class="next" href="blog.html"><span class="fas fa-angle-right" aria-hidden="true"></span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-lg-3">
-          <div class="right-side">
-            <div class="text-title">
-              <h6>Search</h6>
-            </div>
-            <div class="search-box">
-              <form method="post" action="index.html">
-                <div class="input-group">
-                  <input class="form-control" type="search" name="search" placeholder="Enter to Search" required="" autocomplete="off">
-                </div>
-              </form>
-            </div>
-            <div class="categorise-menu">
-              <div class="text-title">
-                <h6>Categories</h6>
-              </div>
-              <ul class="categorise-list">
-                <li><a href="blog.html">Alumni <span>(20)</span></a></li>
-                <li><a href="blog.html">Psycology <span>(4)</span></a></li>
-                <li><a href="blog.html">Sonogram <span>(2)</span></a></li>
-                <li><a href="blog.html">x-ray <span>(9)</span></a></li>
-                <li><a href="blog.html">Dental <span>(2)</span></a></li>
-              </ul>
-            </div>
-            <div class="tag-list">
-              <div class="text-title">
-                <h6>Tags</h6>
-              </div>
-              <a href="blog.html">Dental</a>
-              <a href="blog.html">Root</a>
-              <a href="blog.html">Clean</a>
-              <a href="blog.html">Rehabilitation</a>
-              <a href="blog.html">Surgery</a>
-              <a href="blog.html">Doctor</a>
-              <a href="blog.html">Pediatric</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> {% endcomment %}
-  <!-- End Contact Section -->
 {% endblock %}
 <!--End Block Body content-->
