@@ -122,4 +122,43 @@
       </div>
     </div>
   </section>
+
+  <!-- Predictor Form -->
+  <form name="form" method="post" action="{% url 'predictor' %}">
+    {% csrf_token %}
+    
+    <!-- location -->
+    <div class="form-group">
+      <select class="form-control" name="location" id="location">
+        <option value="">State</option>
+        {% for loc in Locations %}
+          <option value="{{ loc.id }}">{{ loc.state }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Gender -->
+    <div class="form-group">
+      <select class="form-control" name="gender" id="gender">
+        <option value="">Gender</option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+      </select>
+    </div>
+
+    <!-- Specialty -->
+    <div class="form-group" for="specialty">
+      <input class="form-control" type="text"  name="specialty" id="specialty" placeholder="Specialty">
+    </div>
+
+    <!--Is the drug an opioid? -->
+    <div class="form-group">
+      <select class="form-control" name="bOpioid" id="bOpioid">
+        <option value="">Is the drug an opioid?</option>
+        <option value="True">Yes</option>
+        <option value="False">No</option>
+      </select>
+    </div>
+    <button type="submit">Submit</button>
+</form>
 {% endblock %}
