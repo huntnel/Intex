@@ -6,12 +6,6 @@
 
 <!--Block for Body content-->
 {% block content %}
-<<<<<<< HEAD
-
-
-
-
-
 
 <!-- Section -->
 <section class="section style-three pb-0">
@@ -23,6 +17,7 @@
             <h3>Search By <span>Prescriber</span></h3>
           </div>
           <form name="contact_form" class="default-form contact-form" action="{% url 'prescriberfind' %}" method="GET">
+            {% csrf_token %}
             <div class="row">
 
               <!--Start First Column-->
@@ -100,14 +95,10 @@
 </section>
 <!-- End Section -->
 
+{% comment %} 
 
-
-
-{% comment %} <form action="{% url 'prescriberfind' %}" method="GET">
-=======
 <form action="{% url 'prescriberfind' %}" method="GET">
   {% csrf_token %}
->>>>>>> 3526f5cfcac12db35cc139ff420c740742751fb8
   <table style="width: 80%;">
       <tr>
           <td>
@@ -161,7 +152,7 @@
   <tr>
       <td></td>
   </tr>
-</table> {% endcomment %}
+</table>  {% endcomment %}
 
 {% endblock %}
 <!--End Block Body content-->
