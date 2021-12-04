@@ -74,18 +74,6 @@ WSGI_APPLICATION = 'Intex.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-<<<<<<< Updated upstream
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'please',
-#         'USER': 'postgres',
-#         'PASSWORD' : 'admin',
-#         'HOST' : 'localhost',
-#         'PORT' : 5432,
-#     }
-# }
-=======
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -96,7 +84,6 @@ DATABASES = {
         'PORT' : 5432,
     }
 }
->>>>>>> Stashed changes
 
 
 # Password validation
