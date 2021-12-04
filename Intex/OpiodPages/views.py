@@ -228,3 +228,26 @@ def recommenderPageView(request):
 
 def searchLandingView(request):
     return render(request, 'OpiodPages/searchlanding.html')
+
+def addPrescriberPageView(request) :
+    data = State.objects.all()
+    context = {
+        'Locations' : data
+    }
+    return render(request, 'OpiodPages/addprescriber.html', context)
+
+def createPrescriberPageView(request) :
+    if request.method == 'POST':
+        new_prescriper = pd_prescriber()
+        #Store the data from the form to the new object's attributes (like columns)
+        new_prescriper.npi = request.POST.get('npi')
+        new_prescriper.fname = request.POST.get('fname')
+        new_prescriper.lname = request.POST.get('lname')
+        new_prescriper.gender = request.POST.get('gender')
+        new_prescriper.specialty = request.POST.get('specialty')
+        new_prescriper.isopioidprescriber = request.POST.get('bPrescriber')
+        new_prescriper.totalprescriptions = request.POST.get('total')
+        new_prescriper.state = request.POST.get('location')
+        new_prescriper.save()
+        
+    return render(request, 'OpiodPages/prescribersearch.html')
