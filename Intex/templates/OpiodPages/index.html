@@ -76,7 +76,8 @@
               <p>The opioid crisis and prevention page aims to provide an accessible database allowing governemnt officials and prescribers to view the volume of prescriptions that are taking place overall.
                 </p>
               <div class="main-button-red">
-                  <div><a href="{% url 'searchlanding' %}">Search</a></div>
+                  <div><a href="{% url 'prescribersearch' %}">Search by Presriber</a><a href="{% url 'drugsearch' %}">Search by Drug</a></div>
+                  
               </div>
           </div>
               </div>
@@ -94,45 +95,45 @@
           
             <div class="item">
               <div class="icon addHue">
-                <img src="{% static 'assets/images/service-icon-01.png' %}" alt=""> 
+                <img src="{% static 'assets/images/presidenticon.png' %}" alt=""> 
               </div>
               <div class="down-content">
-                <h4>Best Education</h4>
-                <p>Suspendisse tempor mauris a sem elementum bibendum. Praesent facilisis massa non vestibulum.</p>
+                <h3>Epidemic</h3>
+                <p>In 2017, President Trump declared the opioid crisis a national health emergency.</p>
               </div>
             </div>
             
             <div class="item">
               <div class="icon addHue">
-                <img src="{% static 'assets/images/service-icon-02.png' %}" alt="">
+                <img src="{% static 'assets/images/statsicon.png' %}" alt="">
               </div>
               <div class="down-content">
-                <h4>Best Teachers</h4>
-                <p>Suspendisse tempor mauris a sem elementum bibendum. Praesent facilisis massa non vestibulum.</p>
+                <h3>Stats</h3>
+                <p>In 2020, opoiod overdose related deaths rose by 30 percent nationally.</p>
               </div>
             </div>
             
             <div class="item">
               <div class="icon addHue">
-                <img src="{% static 'assets/images/service-icon-03.png' %}" alt=""> 
+                <img src="{% static 'assets/images/utahicon.png' %}" alt=""> 
               </div>
               <div class="down-content">
-                <h4>Best Students</h4>
-                <p>Suspendisse tempor mauris a sem elementum bibendum. Praesent facilisis massa non vestibulum.</p>
+                <h3>Pills</h3>
+                <p>Opioids prescriptions are prescibed 11 percent more in Utah than the national average</p>
               </div>
             </div>
             
             <div class="item">
               <div class="icon addHue">
-                <img src="{% static 'assets/images/service-icon-02.png' %}" alt=""> 
+                <img src="{% static 'assets/images/iconpill.png' %}" alt=""> 
               </div>
               <div class="down-content">
-                <h4>Online Meeting</h4>
-                <p>Suspendisse tempor mauris a sem elementum bibendum. Praesent facilisis massa non vestibulum.</p>
+                <h3>Utah</h3>
+                <p>Every month, 24 people die from prescription opioid overdoses in the state of Utah.</p>
               </div>
             </div>
             
-            <div class="item">
+            {% comment %} <div class="item">
               <div class="icon addHue">
                 <img src="{% static 'assets/images/service-icon-03.png' %}" alt=""> 
               </div>
@@ -140,7 +141,7 @@
                 <h4>Best Networking</h4>
                 <p>Suspendisse tempor mauris a sem elementum bibendum. Praesent facilisis massa non vestibulum.</p>
               </div>
-            </div>
+            </div> {% endcomment %}
             
           </div>
         </div>
@@ -169,7 +170,7 @@
           <div class="col-lg-12">
             <div class="item">
               <h3>SEE THE STATISTICS</h3>
-              <p>Every year the opioid epidemic becomes even more severe. See the data that tells the story of the Opioid Epidemic.</p>
+              <p>Every year the opioid epidemic becomes even more severe. See the data that tells the story of the Opioid Epidemic. <br><br></p>
               <div class="main-button-yellow">
                 <div><a href="{% url 'analysislanding' %}">Learn More</a></div>
             </div>

@@ -120,7 +120,7 @@ img {
 }
 
 .addHue img {
-  filter: hue-rotate(-226deg);
+  filter: hue-rotate(197deg);
 }
 
 /* 
@@ -709,7 +709,7 @@ banner
 
 .video-overlay {
     position: absolute;
-    background-color: rgba(31,39,43,0.75);
+    background-color: rgba(31 39 43 / 45%);
     top: 0;
     left: 0;
     bottom: 0;
@@ -778,6 +778,7 @@ services
 */
 
 .services {
+  padding-top: 12px;
   margin-top: -135px;
   position: absolute;
   width: 100%;
@@ -1031,7 +1032,7 @@ section.apply-now {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 267px 0px 0px 0px;
+  padding: 250px 0px 0px 0px;
 }
 
 section.apply-now .item {
