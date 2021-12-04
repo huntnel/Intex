@@ -2,6 +2,74 @@
 {% load static %}
 {% block pageTitle %}{% endblock %}
 {% block content %}
+
+<!--Start Video Gallery Section-->
+<section class="video-gallery">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title text-center">
+          <h3>Opioid
+            <span>Referencial Material</span>
+          </h3>
+          
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="video-gallery-item">
+          <div class="image-holder">
+            <img loading="lazy"  width="600"
+            height="337"
+            style="width: 600px; height: 300px;" src="{% static 'otherPages/images/gallery/americapills.png' %}" class="img-fluid" alt="video-gallery">
+            <a data-fancybox href="{% url 'analysislanding' %}"><i class="fa fa-play"></i></a>
+          </div>
+          <h3>The Facts on America's Opioid Epidemic</h3>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="video-gallery-item">
+          <div class="image-holder">
+            <img loading="lazy" width="600"
+            height="337"
+            style="width: 600px; height: 300px;" src="{% static 'otherPages/images/gallery/causesaddiction.jpg' %}" class="img-fluid" alt="video-gallery">
+            <a data-fancybox href="https://www.youtube.com/watch?v=V0CdS128-q4">
+              <i class="fa fa-play"></i>
+            </a>
+          </div>
+          <h3>What causes opioid addiction</h3>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="video-gallery-item">
+          <div class="image-holder">
+            <img loading="lazy" width="600"
+            height="337"
+            style="width: 600px; height: 300px;" src="{% static 'otherPages/images/gallery/overdose.jpg' %}" class="img-fluid" alt="video-gallery">
+            <a data-fancybox href="https://www.youtube.com/watch?v=TSzHCCsjsHY">
+              <i class="fa fa-play"></i>
+            </a>
+          </div>                 
+          <h3>Recognizing and Responding to an Opioid Overdose Emergency</h3>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="video-gallery-item">
+          <div class="image-holder">
+            <img loading="lazy"  width="600"
+            height="337"
+            style="width: 600px; height: 300px;" src="{% static 'otherPages/images/gallery/understand.jpg' %}" class="img-fluid" alt="video-gallery">
+            <a data-fancybox href="https://www.youtube.com/watch?v=Hgn7MJjMfkk">
+              <i class="fa fa-play"></i>
+            </a>
+          </div>
+          <h3>Understanding Substance Use Disorder</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Video Gallery Section-->
+
 <section class="video-gallery">
     <div class="container">
       <div class="row">
