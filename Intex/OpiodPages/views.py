@@ -4,6 +4,8 @@ from .models import Drug, Triple, pd_prescriber, Credential, State, Prescriber_C
 from django.db import connection
 
 # Create your views here.
+import json
+import requests
 
 def test(request) :
     data = Drug.objects.filter(isopioid = True)
@@ -303,3 +305,51 @@ def updatePageView(request) :
         oUpdate.totalprescriptions = request.POST.get('updatenumber')
         oUpdate.save()
     return render(request, 'OpiodPages/prescribersearch.html')
+
+def predictorPageView(request):
+    url = "http://d912db94-d8bb-4e07-aafd-02aebb477c22.eastus2.azurecontainer.io/score"
+
+    if request.method == 'POST' :
+        state = request.POST['state']
+        gender = request.POST['gender']
+        specialty = request.POST['specialty']
+        isoppresc = request.POST['isop']
+    
+    payload = json.dumps({  
+    
+    "Inputs": {
+        "WebServiceInput0": [
+        {
+            "state": state,
+            "gender": gender,
+            "specialty": specialty,
+            "isopioidprescriber": isoppresc,
+            "Cuberoot(totalprescriptions)": 5.180101467380292
+        }
+        ]
+    },
+    "GlobalParameters": {}
+    })
+    headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer MVwu3oumhzszRBfTwWb9aur5UZYac6hm'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    json_data = json.loads(response.text)
+
+    items = (json_data['Results']['WebServiceOutput0'][0])
+    
+    iCount = 0
+    mydict = {}
+    import math 
+    print("Total Prescriptions: ")
+    for item in items :
+        mydict[iCount] = math.trunc(items[item]*items[item]*items[item])
+    new = str(mydict[0])
+    print(mydict)
+    context = {
+        "test" : new
+    }
+    
