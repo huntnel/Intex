@@ -22,3 +22,7 @@
     box-shadow: none;
     border: 1px solid #48bdc5;
 }
+
+.centerText {
+    text-align: center;
+}
