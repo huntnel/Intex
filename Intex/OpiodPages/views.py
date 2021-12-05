@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Drug, Triple, pd_prescriber, Credential, State, Prescriber_Credential
 from django.db import connection
 
+
 # Create your views here.
 import json
 from pip._vendor import requests 
@@ -226,8 +227,27 @@ def prescriberFindPageView(request) :
                         #     print(sWord)
                         #     print(sWord[0])
                         #     data = pd_prescriber.objects.filter(fname=sWord1, lname=sWord2)
-                        
-                        data = Prescriber_Credential.objects.select_related('npi__state').get(credid=sCred)
+                            filter = Prescriber_Credential.objects.filter(credid=sCred)
+                            print('Here is the filter:')
+                            print(filter)
+                            for iCount in range(0, len(filter)) :
+                                print('here is the loop filter')
+                                print(filter[iCount].npi)
+                                print('before snpi')
+                                snpi = str(filter[iCount].npi)
+                                print('after snpi')
+                                print(snpi)
+                                print('int before')
+                                snpi = int(snpi)
+                                print('after int')
+                                print(snpi)
+                            return render(request, 'OpiodPages/notfound.html')
+                            
+                            
+                        # for iCount in range(0, len(filter)) :
+                        #     # iLookup = int(filter[iCount].npi)
+                        #     # data = pd_prescriber.objects.filter(npi=filter[iCount].npi)
+                        #     data = pd_prescriber.objects.get(npi=1)
                     else :
                         data = pd_prescriber.objects.filter(specialty = sSpecialty)
                         for iCount in range(0, len(data)) :
@@ -259,6 +279,7 @@ def prescriberFindPageView(request) :
             for iCount in range(0, len(data)) :
                 data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi).only("credid")
                 data3 = Triple.objects.filter(pd_prescriber=data[iCount].npi).only("drug")
+                # data4 = pd_prescriber.objects.raw('SELECT "id", trunc(avg(qty), 2) as averagedrug from "OpiodPages_triple" GROUP BY id')
 
         else :
             data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast, gender=sGender, state=sLocation, specialty=sSpecialty)
@@ -269,16 +290,19 @@ def prescriberFindPageView(request) :
                     lstcred1.append(lstcred[iCount])
                 oDrug = Triple.objects.filter(pd_prescriber=data[iCount].npi)
                 lstdrug.append(oDrug.drug)
-    print(data)
+    # try :
     if data.count() > 0 :
         context = {
                 'prescribers' : data,
                 'credentials' : data2,
-                'triple' : data3
+                'triple' : data3,
+                # 'avg' : data4
             }
         return render(request, 'OpiodPages/prescriberdisplay.html', context)
     else :
         return render(request, 'OpiodPages/notfound.html')
+    # except :
+    #     return render(request, 'OpiodPages/notfound.html')
 
 def recommenderPageView(request):
     return render(request, 'OpiodPages/recommender.html')

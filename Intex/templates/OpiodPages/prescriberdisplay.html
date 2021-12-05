@@ -13,6 +13,7 @@
         <td style="font-weight:bold;">Number of drugs prescribed</td>
         <td style="font-weight:bold;">Credentials</td>
         <td style="font-weight:bold;">Drugs</td>
+        <td style="font-weight:bold;">Average</td>
         <td></td>
     </tr>
     {% for pre in prescribers %}
@@ -30,6 +31,9 @@
         {% endfor %}
         {% for d in triple.all %}
         <td>{{ d.drug }}</td>
+        {% endfor %}
+        {% for a in avg.all %}
+        <td>{{ a.averagedrug }}</td>
         {% endfor %}
         <td><form action='{% url 'delete' npi=pre.npi %}' method='POST'>{% csrf_token %}<button type='submit'>Delete</button></form></td>
     </tr>
