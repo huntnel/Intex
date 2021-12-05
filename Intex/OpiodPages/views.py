@@ -405,29 +405,30 @@ def predictorPageView(request):
     
 def recommenderPageView(request): 
     if request.method == 'POST' :
-        npi = request.POST['npi']
-        fname = request.POST['fname']
-        lname = request.POST['lname']
-        state = request.POST['state']
-        gender = request.POST['gender']
-        specialty = request.POST['specialty']
-        isoppresc = request.POST['isop']
-        totpresc = int(request.POST['total'])
-        totpresc = totpresc/totpresc/totpresc
-    
+        prescriberid = request.POST['npi']
+        fname = str(pd_prescriber.objects.filter(npi=prescriberid).only("fname"))
+        print(fname)
+        lname = str(pd_prescriber.objects.filter(npi=prescriberid).only("lname"))
+        state = str(pd_prescriber.objects.filter(npi=prescriberid).only("state"))
+        gender = str(pd_prescriber.objects.filter(npi=prescriberid).only("gender"))
+        specialty = str(pd_prescriber.objects.filter(npi=prescriberid).only("specialty"))
+        isoppresc = str(pd_prescriber.objects.filter(npi=prescriberid).only("isopioidprescriber"))
+        totpresc = 10
+        # if time, fix totpresc - the problem being that we cannot convert a query set to an integer
+        
     url = "http://65a45df2-2b8f-4b35-a262-d56b3933e309.eastus2.azurecontainer.io/score"
     payload = json.dumps({
     "Inputs": {
         "input1": [
         {
-            "prescriberid": npi,
+            "prescriberid": prescriberid,
             "drugname": "LANTUS.SOLOSTAR",
             "Cuberoot(qty)": 3.6593057100229713
         }
         ],
         "WebServiceInput0": [
         {
-            "npi": npi,
+            "npi": prescriberid,
             "fname": fname,
             "lname": lname,
             "gender": gender,
@@ -477,4 +478,4 @@ def recommenderPageView(request):
         "rec5" : rec5,
     }
     
-    return render(request, 'recommenderdisplay.html', context)
+    return render(request, 'OpiodPages/recommenderdisplay.html', context)
