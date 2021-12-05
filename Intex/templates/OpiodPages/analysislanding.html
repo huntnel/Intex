@@ -220,12 +220,15 @@
           <p>Predict Total Number Of Prescriptions Prescribed</p>
 
 <!--Start form-->
-          <form name="contact_form" class="default-form contact-form" action="{% url 'predictor' %}" method="POST">
+          <form name="contact_form" class="default-form contact-form" action="{% url 'recommender' %}" method="POST">
             {% csrf_token %}
             <div class="row">
               <!--Start First Column-->
               <div class="col-md-6">
                 <!-- location -->
+                <div class="form-grup">
+                  <input class="form-control" type="integer" name="npi" id="npi" placeholder="NPI">
+                </div>
                 <div class="form-group">
                   <select class="form-control" name="location" id="location">
                     <option value="">State</option>
