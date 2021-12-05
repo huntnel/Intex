@@ -3,13 +3,10 @@ from django.http import HttpResponse
 from .models import Drug, Triple, pd_prescriber, Credential, State, Prescriber_Credential
 from django.db import connection
 
+
 # Create your views here.
 import json
-<<<<<<< HEAD
-
-=======
 from pip._vendor import requests 
->>>>>>> ee6021cb33f7dd3df338b63db3fe5c508ad6f9d7
 
 def test(request) :
     data = Drug.objects.filter(isopioid = True)
@@ -230,8 +227,27 @@ def prescriberFindPageView(request) :
                         #     print(sWord)
                         #     print(sWord[0])
                         #     data = pd_prescriber.objects.filter(fname=sWord1, lname=sWord2)
-                        
-                        data = Prescriber_Credential.objects.select_related('npi__state').get(credid=sCred)
+                            filter = Prescriber_Credential.objects.filter(credid=sCred)
+                            print('Here is the filter:')
+                            print(filter)
+                            for iCount in range(0, len(filter)) :
+                                print('here is the loop filter')
+                                print(filter[iCount].npi)
+                                print('before snpi')
+                                snpi = str(filter[iCount].npi)
+                                print('after snpi')
+                                print(snpi)
+                                print('int before')
+                                snpi = int(snpi)
+                                print('after int')
+                                print(snpi)
+                            return render(request, 'OpiodPages/notfound.html')
+                            
+                            
+                        # for iCount in range(0, len(filter)) :
+                        #     # iLookup = int(filter[iCount].npi)
+                        #     # data = pd_prescriber.objects.filter(npi=filter[iCount].npi)
+                        #     data = pd_prescriber.objects.get(npi=1)
                     else :
                         data = pd_prescriber.objects.filter(specialty = sSpecialty)
                         for iCount in range(0, len(data)) :
@@ -263,6 +279,7 @@ def prescriberFindPageView(request) :
             for iCount in range(0, len(data)) :
                 data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi).only("credid")
                 data3 = Triple.objects.filter(pd_prescriber=data[iCount].npi).only("drug")
+                # data4 = pd_prescriber.objects.raw('SELECT "id", trunc(avg(qty), 2) as averagedrug from "OpiodPages_triple" GROUP BY id')
 
         else :
             data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast, gender=sGender, state=sLocation, specialty=sSpecialty)
@@ -273,16 +290,19 @@ def prescriberFindPageView(request) :
                     lstcred1.append(lstcred[iCount])
                 oDrug = Triple.objects.filter(pd_prescriber=data[iCount].npi)
                 lstdrug.append(oDrug.drug)
-    print(data)
+    # try :
     if data.count() > 0 :
         context = {
                 'prescribers' : data,
                 'credentials' : data2,
-                'triple' : data3
+                'triple' : data3,
+                # 'avg' : data4
             }
         return render(request, 'OpiodPages/prescriberdisplay.html', context)
     else :
         return render(request, 'OpiodPages/notfound.html')
+    # except :
+    #     return render(request, 'OpiodPages/notfound.html')
 
 def recommenderPageView(request):
     return render(request, 'OpiodPages/recommender.html')
@@ -385,29 +405,30 @@ def predictorPageView(request):
     
 def recommenderPageView(request): 
     if request.method == 'POST' :
-        npi = request.POST['npi']
-        fname = request.POST['fname']
-        lname = request.POST['lname']
-        state = request.POST['state']
-        gender = request.POST['gender']
-        specialty = request.POST['specialty']
-        isoppresc = request.POST['isop']
-        totpresc = int(request.POST['total'])
-        totpresc = totpresc/totpresc/totpresc
-    
+        prescriberid = request.POST['npi']
+        fname = str(pd_prescriber.objects.filter(npi=prescriberid).only("fname"))
+        print(fname)
+        lname = str(pd_prescriber.objects.filter(npi=prescriberid).only("lname"))
+        state = str(pd_prescriber.objects.filter(npi=prescriberid).only("state"))
+        gender = str(pd_prescriber.objects.filter(npi=prescriberid).only("gender"))
+        specialty = str(pd_prescriber.objects.filter(npi=prescriberid).only("specialty"))
+        isoppresc = str(pd_prescriber.objects.filter(npi=prescriberid).only("isopioidprescriber"))
+        totpresc = 10
+        # if time, fix totpresc - the problem being that we cannot convert a query set to an integer
+        
     url = "http://65a45df2-2b8f-4b35-a262-d56b3933e309.eastus2.azurecontainer.io/score"
     payload = json.dumps({
     "Inputs": {
         "input1": [
         {
-            "prescriberid": npi,
+            "prescriberid": prescriberid,
             "drugname": "LANTUS.SOLOSTAR",
             "Cuberoot(qty)": 3.6593057100229713
         }
         ],
         "WebServiceInput0": [
         {
-            "npi": npi,
+            "npi": prescriberid,
             "fname": fname,
             "lname": lname,
             "gender": gender,
@@ -457,4 +478,4 @@ def recommenderPageView(request):
         "rec5" : rec5,
     }
     
-    return render(request, 'recommenderdisplay.html', context)
+    return render(request, 'OpiodPages/recommenderdisplay.html', context)

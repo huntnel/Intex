@@ -3,7 +3,68 @@
 {% block pageTitle %}{% endblock %}
 {% block content %}
 
-<h1>Predictive Analysis</h1>
+<!--Content Page-->
+<section class="section pt-0" style="padding-bottom: 0px;">
+  <div class="container service-box" style="padding-top: 62px;">
+    <div class="row">
+
+      <!--Start predictor page content-->
+      <div class="col-lg-6">
+        <div class="contents" style="display: flex; flex-direction: column;">
+          <div class="section-title">
+            <h3>Prescription Predictor</h3>
+          </div>
+          <div class="text">
+            <p>
+              Using Azure Machine Learning Studio we have created a tool 
+              to predict the total number of prescriptions that will be prescribed. 
+              Enter the state, gender, specialty, and if the drug is an opioid or not 
+              and a prediction will be generated.
+            </p>
+            <p>
+              Enter the state, gender, specialty, and if the drug is an opioid or not 
+              and a prediction will be generated.
+            </p>
+
+          </div>
+          <a href="#predictor-form" class="btn btn-style-one" style="width: 25%; align-self: center;">
+            <i class="fa fa-angle-down"></i>
+          </a>
+        </div>
+      </div>
+      <!--End Predictor Page content-->
+
+
+    <!--Start Recommender Page content-->
+      <div class="col-lg-6">
+        <div class="contents" style="display: flex; flex-direction: column;">
+          <div class="section-title">
+            <h3>Drug Recommender</h3>
+          </div>
+          <div class="text">
+            <p>
+              Opioids can cause bad reactions that 
+              make your breathing slow or even stop. 
+              This can happen if your body can't handle 
+              the opioids that you take that day.
+            </p>
+            <p>
+              Never take more opioids to relieve pain
+              than your prescription states.
+              Do not to mix your opioids with alcohol, 
+              benzodiazepines (Xanax, Ativan,
+              Klonopin, Valium), or medicines that make you sleepy.
+            </p>
+
+          </div>
+          <a href="#recommender-form" class="btn btn-style-one" style="width: 25%; align-self: center;">
+            <i class="fa fa-angle-down"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="video-gallery">
     <div class="container">
@@ -61,13 +122,13 @@
 
 
   <!-- Section including predictor form  -->
-<section class="section style-three pb-0">
+<section class="section style-three" id="predictor-form">
   <div class="container">
     <div class="row">
       <div class="col-lg-6 order-1 order-lg-0">
         <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
           <div class="section-title">
-            <h3>Predictive <span>Analysis</span></h3>
+            <h3>Predictor</span></h3>
           </div>
           <p>Predict Total Number Of Prescriptions Prescribed</p>
 
@@ -133,7 +194,7 @@
       <div class="col-lg-6 mb-4 mb-lg-0 order-0 order-lg-1">
         <div class="appointment-image-holder ml-0 ml-lg-4">
           <figure>
-            <img loading="lazy" class="w-100" src="{% static 'otherPages/images/background/appointment.jpg' %}" alt="Appointment">
+            <img loading="lazy" class="w-100" src="{% static 'otherPages/images/background/pillBackground.jpg' %}" alt="Appointment">
           </figure>
         </div>
       </div>
@@ -145,39 +206,45 @@
 
 
 <!-- Section including recommender form  -->
-<section class="section style-three pb-0">
+<section class="section style-three pb-0" id="recommender-form">
   <div class="container">
     <div class="row">
       <div class="col-lg-6 order-1 order-lg-0">
+        <div class="appointment-image-holder ml-0 ml-lg-4">
+          <figure>
+            <img loading="lazy" class="w-100" src="{% static 'otherPages/images/background/prescribe.jpg' %}" alt="Appointment">
+          </figure>
+        </div>
+  
+      </div>
+      <div class="col-lg-6 mb-4 mb-lg-0 order-0 order-lg-1">
         <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
           <div class="section-title">
-            <h3>Predictive <span>Analysis</span></h3>
+            <h3>Recommender</h3>
           </div>
-          <p>Predict Total Number Of Prescriptions Prescribed</p>
+          <p>Change this stuff</p>
 
 <!--Start form-->
-          <form name="contact_form" class="default-form contact-form" action="{% url 'predictor' %}" method="POST">
+          <form name="contact_form" class="default-form contact-form" action="{% url 'recommender' %}" method="POST">
             {% csrf_token %}
             <div class="row">
               <!--Start First Column-->
               <div class="col-md-6">
-                <!-- location -->
-                <div class="form-group">
-                  <select class="form-control" name="location" id="location">
-                    <option value="">State</option>
-                    {% for loc in Locations %}
-                      <option value="{{ loc.id }}">{{ loc.state }}</option>
-                    {% endfor %}
-                  </select>
+
+                <!-- npi -->
+                <div class="form-grup">
+                  <input class="form-control" type="integer" name="npi" id="npi" placeholder="NPI">
                 </div>
-                <!-- Gender -->
+
+
+                {% comment %} <!-- Gender -->
                 <div class="form-group">
                   <select class="form-control" name="gender" id="gender">
                     <option value="">Gender</option>
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                   </select>
-                </div>
+                </div> {% endcomment %}
                 <!--Gender-->
                 <!-- Specialty -->
                 {% comment %} <div class="form-group" for="specialty">
@@ -187,39 +254,45 @@
               </div>
               <!--Start Column 2-->
               <div class="col-md-6">
-                <!--Is the drug an opioid? -->
+                <div class="col-md-12">
+                  <div class="form-group text-center">
+                    <button type="submit" class="btn-style-one">search</button>
+                  </div>
+                </div>
+
+                {% comment %} <!--Is the drug an opioid? -->
                 <div class="form-group">
                   <select class="form-control" name="bOpioid" id="bOpioid">
                     <option value="">Is the drug an opioid?</option>
                     <option value="True">Yes</option>
                     <option value="False">No</option>
                   </select>
-                </div>
-                <!-- Specialty -->
+                </div> {% endcomment %}
+
+                {% comment %} <!-- Specialty -->
                 <div class="form-group" for="specialty">
                   <input class="form-control" type="text"  name="specialty" id="specialty" placeholder="Specialty">
-                </div>
+                </div> {% endcomment %}
+
                 <!--Get rid of this-->
                 {% comment %} <div class="form-group" for="lastName">
                   <input class="form-control" type="text"  name="specialty" id="specialty" placeholder="Specialty">
                 </div> {% endcomment %}
               </div>
-              <div class="col-md-12">
+              {% comment %} <div class="col-md-12">
                 <div class="form-group text-center">
                   <button type="submit" class="btn-style-one">search</button>
                 </div>
-              </div>
+              </div> {% endcomment %}
             </div>
           </form>
           <!--End form -->
         </div>
-      </div>
-      <div class="col-lg-6 mb-4 mb-lg-0 order-0 order-lg-1">
-        <div class="appointment-image-holder ml-0 ml-lg-4">
+        {% comment %} <div class="appointment-image-holder ml-0 ml-lg-4">
           <figure>
-            <img loading="lazy" class="w-100" src="{% static 'otherPages/images/background/appointment.jpg' %}" alt="Appointment">
+            <img loading="lazy" class="w-100" src="{% static 'otherPages/images/background/drugBackground.jpg' %}" alt="Appointment">
           </figure>
-        </div>
+        </div> {% endcomment %}
       </div>
     </div>
   </div>
