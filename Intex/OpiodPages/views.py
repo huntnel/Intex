@@ -5,7 +5,11 @@ from django.db import connection
 
 # Create your views here.
 import json
+<<<<<<< HEAD
+
+=======
 from pip._vendor import requests 
+>>>>>>> ee6021cb33f7dd3df338b63db3fe5c508ad6f9d7
 
 def test(request) :
     data = Drug.objects.filter(isopioid = True)
@@ -206,12 +210,28 @@ def prescriberFindPageView(request) :
     sCredentials = request.GET['credentials']
     sSpecialty = request.GET['specialty']
     sCred = dictCreds.get(sCredentials)
+    print(sCred)
     if (sFirst == '') :
         if (sLast == '') : 
             if (sGender == '') :
                 if (sLocation == '') :
                     if (sSpecialty == '') :
-                        data = Prescriber_Credential.objects.filter(credid=sCred)
+                        # filter = Prescriber_Credential.objects.filter(credid=sCred)
+                        # print('Here is the filter:')
+                        # print(filter)
+                        # for iCount in range(0, len(filter)) :
+                        #     print('Here is the loop filter:')
+                        #     print(filter[iCount].npi)
+                        #     sSplit = str(filter[iCount].npi)
+                        #     print("Here is the split data")
+                        #     sWord = sSplit.split()
+                        #     sWord1 = sWord[0]
+                        #     sWord2 = sWord[1]
+                        #     print(sWord)
+                        #     print(sWord[0])
+                        #     data = pd_prescriber.objects.filter(fname=sWord1, lname=sWord2)
+                        
+                        data = Prescriber_Credential.objects.select_related('npi__state').get(credid=sCred)
                     else :
                         data = pd_prescriber.objects.filter(specialty = sSpecialty)
                         for iCount in range(0, len(data)) :
@@ -241,8 +261,8 @@ def prescriberFindPageView(request) :
         if (sGender == '' or sLocation == '' or sSpecialty == '') :
             data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast)
             for iCount in range(0, len(data)) :
-                data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi)
-                data3 = Triple.objects.filter(pd_prescriber=data[iCount].npi)
+                data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi).only("credid")
+                data3 = Triple.objects.filter(pd_prescriber=data[iCount].npi).only("drug")
 
         else :
             data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast, gender=sGender, state=sLocation, specialty=sSpecialty)
@@ -253,7 +273,7 @@ def prescriberFindPageView(request) :
                     lstcred1.append(lstcred[iCount])
                 oDrug = Triple.objects.filter(pd_prescriber=data[iCount].npi)
                 lstdrug.append(oDrug.drug)
-    print(data3)
+    print(data)
     if data.count() > 0 :
         context = {
                 'prescribers' : data,
