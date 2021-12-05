@@ -5,11 +5,7 @@ from django.db import connection
 
 # Create your views here.
 import json
-<<<<<<< HEAD
-
-=======
 from pip._vendor import requests 
->>>>>>> ee6021cb33f7dd3df338b63db3fe5c508ad6f9d7
 
 def test(request) :
     data = Drug.objects.filter(isopioid = True)
