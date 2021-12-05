@@ -50,7 +50,7 @@ class pd_prescriber(models.Model) :
         db_table = 'OpiodPages_pd_prescriber'
 
     def __str__(self) :
-        return(str(self.npi))
+        return(self.fname + ' ' + self.lname)
 
 class Prescriber_Credential(models.Model) :
     npi = models.ForeignKey(pd_prescriber, on_delete=models.DO_NOTHING, to_field='npi')

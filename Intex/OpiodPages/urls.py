@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import test, editPageView, updatePageView, deletePageView, createPrescriberPageView, addPrescriberPageView, indexPageView, drugFindPageView, prescriberFindPageView, analysis1PageView, analysis2PageView, analysis3PageView, analysisLandingView, drugSearchView, educationLandingView, predictorPageView, prescriberSearchView, recommenderPageView, searchLandingView 
+from .views import displayTopPre, editPageView, displayAvgPageView, preDetailsPageView, updatePageView, deletePageView, createPrescriberPageView, addPrescriberPageView, indexPageView, drugFindPageView, prescriberFindPageView, analysis1PageView, analysis2PageView, analysis3PageView, analysisLandingView, drugSearchView, educationLandingView, predictorPageView, prescriberSearchView, recommenderPageView, searchLandingView 
 
 
 urlpatterns = [
@@ -16,11 +16,13 @@ urlpatterns = [
     path("prescriberfind/", prescriberFindPageView, name = 'prescriberfind'),
     path("recommender/", recommenderPageView, name = "recommender"),
     path("searchlanding/", searchLandingView, name = "searchlanding"), 
-    path("test/", test, name="test"),
     path("addprescriber/", addPrescriberPageView, name="addprescriber"),
     path("createprescriber/", createPrescriberPageView, name="createprescriber"),
     path("edit/<int:npi>", editPageView, name="edit"),
     path("delete/<int:npi>", deletePageView, name="delete"),
     path("updateit/", updatePageView, name="updateit"),
     path("predictor/", predictorPageView, name="predictor"),
+    path("predetails/<int:npi>", preDetailsPageView, name='predetails'),
+    path("displayavg/<str:drugid>", displayAvgPageView, name='displayavg'),
+    path("displaytoppre/<int:drugid>", displayTopPre, name="displaytoppre"),
 ]
