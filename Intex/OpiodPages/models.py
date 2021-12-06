@@ -40,7 +40,7 @@ class pd_prescriber(models.Model) :
     fname = models.CharField(max_length=11)
     lname = models.CharField(max_length=11)
     gender = models.CharField(max_length=1)
-    state = models.ForeignKey("State", null=True, on_delete=models.DO_NOTHING)
+    state = models.ForeignKey("State", null=True, on_delete=models.CASCADE)
     specialty = models.CharField(max_length=62)
     isopioidprescriber = models.BooleanField(default=False)
     totalprescriptions = models.IntegerField(default=0)
@@ -57,8 +57,8 @@ class pd_prescriber(models.Model) :
         return(self.fname + ' ' + self.lname)
 
 class Prescriber_Credential(models.Model) :
-    npi = models.ForeignKey(pd_prescriber, on_delete=models.DO_NOTHING, to_field='npi')
-    credid = models.ForeignKey(Credential, on_delete=models.DO_NOTHING)
+    npi = models.ForeignKey(pd_prescriber, on_delete=models.CASCADE, to_field='npi')
+    credid = models.ForeignKey(Credential, on_delete=models.CASCADE)
         
     def __str__(self) :
         return(str(self.npi) + " " + str(self.credid))
@@ -67,8 +67,8 @@ class Prescriber_Credential(models.Model) :
 
 class Triple(models.Model) :
     qty = models.IntegerField(default=0, null=False)
-    drug = models.ForeignKey(Drug, on_delete=models.DO_NOTHING)
-    pd_prescriber = models.ForeignKey(pd_prescriber, on_delete=models.DO_NOTHING)
+    drug = models.ForeignKey(Drug, on_delete=models.CASCADE)
+    pd_prescriber = models.ForeignKey(pd_prescriber, on_delete=models.CASCADE)
 
     class Meta: 
         db_table = 'OpiodPages_triple'
