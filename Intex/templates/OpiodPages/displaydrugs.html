@@ -1,4 +1,14 @@
-<table style="margin-left:auto;margin-right:auto;width: 50%;">
+{% extends 'base.html' %}
+{% load static %}
+{% load templatetags %}
+
+{% block head %}
+<!-- stylesheet -->
+<link rel="stylesheet" href="{% static 'otherPages/css/displayStyles.css' %}">
+{% endblock %} 
+
+{% block content %}
+{% comment %} <table style="margin-left:auto;margin-right:auto;width: 50%;">
     <tr>
         <td style="font-weight:bold;">Drug Name</td>
         <td style="font-weight:bold;">Opioid?</td>
@@ -13,4 +23,43 @@
     {% endfor %}
     <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit">Search Again</button></form>
     <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search for a drug prescriber</button></button>
-</table>
+</table> {% endcomment %}
+
+<div class="background-stuff">
+    <h1>Drug Results</h1>
+    <div class="table-container">
+      <div class="rTable">
+        <div class="rTableRow">
+          <div class="rTableHead">Drug Name</div>
+          <div class="rTableHead">Opioid</div>
+          <div class="rTableHead">Top Ten Prescribers</div>
+        </div>
+  
+        <!--Loop through results-->
+        {% for drug in drugs %}
+  
+        <div class="rTableRow">
+          
+  
+          <!--Drug Name Field-->
+          <div class="rTableCell">
+            {{drug.drugname}}
+          </div>
+  
+          <!--isOpioid field-->
+          <div class="rTableCell">
+            {{drug.isopioid}}
+          </div>
+  
+          <!--Row for Top 10 button-->
+          <div class="rTableCell">
+            <form class="button" action="{% url 'displaytoppre' drugid=drug.drugid %}" method="GET">{% csrf_token %}
+                <button type="submit">Top Ten Prescribers</button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+      {% endblock %}

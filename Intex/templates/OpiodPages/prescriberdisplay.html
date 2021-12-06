@@ -1,7 +1,14 @@
+{% extends 'base.html' %}
 {% load static %}
 {% load templatetags %}
+
+{% block head %}
+<!-- stylesheet -->
+<link rel="stylesheet" href="{% static 'otherPages/css/displayStyles.css' %}">
+{% endblock %} 
+
 {% block content %}
-<table style="margin-left:auto;margin-right:auto;width: 70%;">
+{% comment %} <table style="margin-left:auto;margin-right:auto;width: 70%;">
     <tr>
         <td></td>
         <td style="font-weight:bold;">NPI</td>
@@ -28,4 +35,81 @@
 </table> 
  <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search Again</button></form>
  <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit">Search for a drug</button></form>
-{% endblock %}
+ {% endcomment %}
+
+
+
+
+
+
+<div class="background-stuff">
+  <h1>Prescriber Results</h1>
+  <div class="table-container">
+    <div class="rTable">
+      <div class="rTableRow">
+        <div class="rTableHead">Edit</div>
+        <div class="rTableHead">See Details</div>
+        <div class="rTableHead">NPI</div>
+        <div class="rTableHead">Name</div>
+        <div class="rTableHead">Gender</div>
+        <div class="rTableHead">State</div>
+        <div class="rTableHead">Prescribes opioids?</div>
+        <div class="rTableHead">Delete</div>
+      </div>
+
+      <!--Loop through results-->
+      {% for pre in prescribers %}
+
+      <div class="rTableRow">
+        
+        <!--Row for edit button-->  
+        <div class="rTableCell">
+          <form action='{% url 'edit' npi=pre.npi %}' method='GET'>{% csrf_token %}
+              <button class="button" type='submit'>Edit</button>
+          </form>
+        </div>
+
+        <!--Row for See details button-->
+        <div class="rTableCell">
+          <form action="{% url 'predetails' npi=pre.npi %}" method="GET">{% csrf_token %}
+              <button class="button" type="submit">See Details</button>
+          </form>
+        </div>
+
+        <!--NPI Field-->
+        <div class="rTableCell">
+            {{pre.npi}}
+        </div>
+
+        <!--Full name field-->
+        <div class="rTableCell">
+          {{pre.fname}} {{pre.lname}}
+        </div>
+
+        <!--Gender Field-->
+        <div class="rTableCell">
+          {{pre.gender}}
+        </div>
+
+        <!--State Field-->
+        <div class="rTableCell">
+            {{pre.state.state}}
+        </div>
+
+        <!--isOpioid Field-->
+        <div class="rTableCell">
+          {{pre.isopioidprescriber}}
+        </div>
+
+        <!--Row for delete button-->
+        <div class="rTableCell">
+          <form action="{% url 'delete' npi=pre.npi %}" method='POST'>{% csrf_token %}
+              <button class= "button" type='submit'>Delete</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+    {% endblock %}
