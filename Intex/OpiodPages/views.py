@@ -201,10 +201,9 @@ def prescriberFindPageView(request) :
             if (sGender == '') :
                 if (sLocation == '') :
                     if (sSpecialty == '') :
-                            creds = Prescriber_Credential.objects.filter(credid=iCred)
-                            for iCount in range(0, len(creds)) :
-                                data = pd_prescriber.objects.filter(npi = creds[iCount].npi)
-                            return render(request, 'OpiodPages/notfound.html')
+                            sQuery = 'SELECT npi, fname, lname FROM "OpiodPages_pd_prescriber" INNER JOIN "OpiodPages_prescriber_credential" ON "OpiodPages_pd_prescriber".npi = "OpiodPages_prescriber_credential".npi_id WHERE "OpiodPages_prescriber_credential".credid_id = ' + str(iCred)
+                            data = pd_prescriber.objects.raw(sQuery)
+                            print(data)
                     else :
                         data = pd_prescriber.objects.filter(specialty = sSpecialty)
                 else :
@@ -223,13 +222,19 @@ def prescriberFindPageView(request) :
     try :
         if data.count() > 0 :
             context = {
-                    'prescribers' : data,
+                'prescribers' : data,
                 }
             return render(request, 'OpiodPages/prescriberdisplay.html', context)
         else :
             return render(request, 'OpiodPages/notfound.html')
     except :
-        return render(request, 'OpiodPages/notfound.html')
+        if str(data) != '':
+            context = {
+                'prescribers' : data,
+                }
+            return render(request, 'OpiodPages/prescriberdisplay.html', context)
+        else :
+            return render(request, 'OpiodPages/notfound.html')
 
 def searchLandingView(request):
     return render(request, 'OpiodPages/searchlanding.html')
@@ -265,16 +270,49 @@ def deletePageView(request, npi) :
 
 def editPageView(request, npi) :
     data = pd_prescriber.objects.filter(npi=npi)
+    data2 = State.objects.all()
     context = {
-        "edit" : data
+        "edit" : data,
+        "Locations" : data2
     }
     return render(request, 'OpiodPages/edit.html', context)
 
 def updatePageView(request) :
-    if request.method == 'POST':
+    if request.method == 'POST' :
         iUpdateID = request.POST.get('npihidden')
         oUpdate = pd_prescriber.objects.get(npi=iUpdateID)
-        oUpdate.totalprescriptions = request.POST.get('updatenumber')
+        newfname = request.POST.get('firstname')
+        if newfname == '' :
+            newfname = oUpdate.fname
+        newlname = request.POST.get('lastname')
+        if newlname == '' :
+            newlname = oUpdate.lname
+        newgender = request.POST.get('gender')
+        if newgender == '' :
+            newgender = oUpdate.gender
+        newstate = request.POST.get('location')
+        print('first state')
+        print(newstate)
+        if newstate == '' :
+            newstate = oUpdate.state
+        print('second state')
+        print(newstate)
+        newspecialty = request.POST.get('specialty')
+        if newspecialty == '' :
+            newspecialty = oUpdate.npi
+        newisopioidprescriber = request.POST.get('bOpioid')
+        if newisopioidprescriber == "" :
+            newisopioidprescriber = oUpdate.isopioidprescriber
+        newtotalprescriptions = request.POST.get('updatenumber')
+        if newtotalprescriptions == '' :
+            newtotalprescriptions = oUpdate.totalprescriptions
+        oUpdate.fname = newfname
+        oUpdate.lname = newlname
+        oUpdate.gender = newgender
+        oUpdate.state = newstate
+        oUpdate.specialty = newspecialty
+        oUpdate.isopioidprescriber = newisopioidprescriber
+        oUpdate.totalprescriptions = newtotalprescriptions
         oUpdate.save()
     return render(request, 'OpiodPages/prescribersearch.html')
 
@@ -426,32 +464,10 @@ def displayAvgPageView(request, drugid) :
     return render(request, "OpiodPages/predetailsavg.html", context)
 
 def displayTopPre(request, drugid) :
-    # data2 = ''
-    data = Triple.objects.filter(drug=drugid).order_by(('qty'))
-    data = data.reverse()[:10]
-    data2 = pd_prescriber.objects.all()
-    for iCount in range(0, len(data2)) :
-        data2[iCount].npi = str(data2[iCount].npi)
-        print(data2[iCount].npi + ' is a string')
-    # lstPres = []
-    # for iCount in range(0, len(data)) :
-    #     sNpi = data[iCount].pd_prescriber
-    #     iNpi = int(str(sNpi))
-    #     data2 = pd_prescriber.objects.filter(npi=iNpi)
-    #     lstPres.append(data2)
-    #     print(str(iCount))
-    #     print(data2)
-    # print("final data2")
-    # print(data2)
-    # print(lstPres)
-    # try :
-    print('data')
-    print(data)
-    print('data2')
-    print(data2)
+    sQuery = 'SELECT npi, fname, lname FROM "OpiodPages_pd_prescriber" INNER JOIN "OpiodPages_triple" ON "OpiodPages_pd_prescriber".npi = "OpiodPages_triple".pd_prescriber_id WHERE "OpiodPages_triple".drug_id = ' + str(drugid) + ' ORDER BY qty DESC LIMIT 10'
+    data = pd_prescriber.objects.raw(sQuery)
     context = {
-        'npis' : data,
-        'pres' : data2
+        'pre' : data,
     }
     return render(request, 'OpiodPages/displaytop.html', context)
     # except :

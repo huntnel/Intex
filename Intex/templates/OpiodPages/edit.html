@@ -1,11 +1,41 @@
 <form method='POST' action='{% url 'updateit' %}'>
     {% csrf_token %}
     {% for e in edit %}
+        <p>NPI: {{e.npi}}</p>
         <p>{{e.fname}} {{e.lname}}</p>
-        <p>{{e.totalprescriptions}}</p>
+        <p>Gender: {{e.gender}}</p>
+        <p>Location: {{e.state.state}}</p>
+        <p>Specialty: {{e.specialty}}</p>
+        <p>Prescribes opioids?: {{e.isopioidprescriber}}</p>
+        <p>Number of prescriptions: {{e.totalprescriptions}}</p>
         <input type='hidden' value='{{ e.npi }}' name="npihidden">
     {% endfor %}
+    <label for='firstname'>What is the new first name?</label>
+    <input name='firstname' id='firstname' type='text'><br>
+    <label for='lastname'>What is the new last name?</label>
+    <input name='lastname' id='lastname' type='text'><br>
+    <label for='gender'>What is the new gender?</label>
+    <select name="gender" id="gender">
+        <option value="">Gender</option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+    </select><br>
+    <label for='location'>What is the new state?</label>
+    <select name="location" id="location">
+        <option value="">State</option>
+        {% for loc in Locations %}
+          <option value="{{ loc.id }}">{{ loc.state }}</option>
+        {% endfor %}
+      </select><br>
+    <label for='specialty'>What is the new specialty?</label>
+    <input name='specialty' id='specialty' type='text'><br>
+    <label for='bOpioid'>Do they prescribe opioids?</label>
+    <select class="form-control" name="bOpioid" id="bOpioid" default="">
+        <option value="">Do they prescribe opioids?</option>
+        <option value="True">Yes</option>
+        <option value="False">No</option>
+      </select><br>
     <label for='updatenumber'>What is the new amount of total prescriptions?</label>
-    <input name='updatenumber' id='updatenumber' type='number' default=0>
+    <input name='updatenumber' id='updatenumber' type='number' default=0><br>
     <button type='submit'>Update</button>
 </form>
