@@ -1,9 +1,60 @@
-{% extends 'base.html' %}
-{% load static %}
+    {% extends 'base.html' %}
+    {% load static %}
+    {% load templatetags %}
+    {% comment %} <h2> {{ test }} {% endcomment %}
+    
+    {% block head %}
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="{% static 'otherPages/css/displayStyles.css' %}">
+    {% endblock %} 
+    
+    {% block content %}
+    
+    {% comment %} <h1> {{ rec1 }} </h1>
+    <h1> {{ rec2 }} </h1>
+    <h1> {{ rec3 }} </h1>
+    <h1> {{ rec4 }} </h1>
+    <h1> {{ rec5 }} </h1> {% endcomment %}
+    <div class="background-stuff">
+        <h1>Predicted Drug Quantity</h1>
+        <div class="table-container">
+          <div class="rTable">
+            <div class="rTableRow">
+            </div>
+      
+            <!--Loop through results-->
+      
+            {% comment %} <div class="rTableRow"> {% endcomment %}
+              
+      
+              <!--Drug Name Field-->
+              <div class="rTableCell">
+                <h3>{{test}}</h3>
+              </div>
+      
+              {% comment %} <!--isOpioid field-->
+              <div class="rTableCell">
+                2. {{rec2}}
+              </div>
+    
+              <!--isOpioid field-->
+              <div class="rTableCell">
+                3. {{rec3}}
+              </div>
+    
+              <!--isOpioid field-->
+              <div class="rTableCell">
+                4. {{rec4}}
+              </div>
+    
+              <!--isOpioid field-->
+              <div class="rTableCell">
+                5. {{rec5}}
+              </div> {% endcomment %}
+            </div>
+          </div>
+        </div>
+      </div>
+          {% endblock %}
+    
 
-
-{% block content %}
-
-<h2> {{ test }}
-
-{% endblock %}
