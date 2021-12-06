@@ -62,4 +62,10 @@
       </div>
     </div>
   </div>
+  {% comment %} Button Container {% endcomment %}
+<div class="button-container">
+    <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit" class="styled">Search Again</button></form>
+    <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit" class="styled">Search Prescriber</button></form>
+    </div>
+    {% endblock %}
       {% endblock %}
