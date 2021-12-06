@@ -3,21 +3,11 @@
     <tr>
         <td style="font-weight:bold;">Prescriber</td>
     </tr>
-    {% for p in pres %}
-    {% for n in npis %}
+    {% for p in pre %}
     <tr>
-        {% if p.npi == n.pd_prescriber%}
-        <td>{{ p.npi }}</td>
-        {% endif %}
-        {% endfor %}
-        {% endfor %}
-        {% comment %} {% for p in pres %}
-        {% if p.npi == n.pd_prescriber %}
-        <td>{{ p.fname }}</td>
-        {% endif %}
-        <td>{{ n.pd_prescriber }}</td>
-        {% endfor %} {% endcomment %}
+    <td> {{ p.fname }} {{p.lname}}</td>
     </tr>
+    {% endfor %}
     <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit">Search Again</button></form>
     <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search for a drug prescriber</button></button>
 </table>
