@@ -1,0 +1,113 @@
+.background-stuff {
+    background-color: #c4d3f6;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h1 {
+    align-self: center;
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-family: "Poppins", sans-serif;
+    color: #333968;
+  }
+  
+  .rTable {
+    display: table;
+    border-collapse: separate;
+    max-width: 60rem;
+    width: 70vw;
+  }
+  .rTableRow {
+    display: table-row;
+  }
+  .rTableHeading {
+    display: table-header-group;
+  }
+  .rTableBody {
+    display: table-row-group;
+  }
+  .rTableFoot {
+    display: table-footer-group;
+  }
+  
+  .rTableHead {
+    display: table-cell;
+    text-align: center;
+    color: #fff;
+    background: #6c7ae0;
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+  }
+  
+  .rTableCell {
+    display: table-cell;
+    background: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    border-bottom: 1px solid rgb(153, 153, 153);
+  }
+  
+  .table-container {
+    margin-bottom: 50px;
+    width: 76vw;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    max-width: 65rem;
+    align-self: center;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  button {
+    margin: 0.5rem;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    border: none;
+    background: #f3efff;
+    user-select: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: rgb(247, 148, 0);
+    color: white;
+  }
+  
+  .styled {
+    background: #6c7ae0;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 14px 18px;
+    transition: 350ms;
+    border: 2px solid #6c7ae0;
+    user-select: none;
+    cursor: pointer;
+    width: 195px;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    border-radius: 10px;
+    color: white;
+  }
+  
+  .styled:hover {
+    background-color: rgb(247, 148, 0);
+    border-color: rgb(247, 148, 0);
+  }
+  
+  .styled:focus {
+    outline: none;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  
