@@ -395,9 +395,14 @@ def deletePageView(request, npi) :
 def editPageView(request, npi) :
     data = pd_prescriber.objects.filter(npi=npi)
     data2 = State.objects.all()
+    filter = Triple.objects.filter(pd_prescriber=data[0].npi)
+    data3 = Drug.objects.exclude(drugid__in=filter.drugid.all())
+    data4 = Credential.objects.all()
     context = {
         "edit" : data,
-        "Locations" : data2
+        "Locations" : data2,
+        "one" : data3,
+        "two" : data4
     }
     return render(request, 'OpiodPages/edit.html', context)
 
@@ -430,6 +435,9 @@ def updatePageView(request) :
         newtotalprescriptions = request.POST.get('updatenumber')
         if newtotalprescriptions == '' :
             newtotalprescriptions = oUpdate.totalprescriptions
+
+        # if (request.POST.get(''))
+
         oUpdate.fname = newfname
         oUpdate.lname = newlname
         oUpdate.gender = newgender

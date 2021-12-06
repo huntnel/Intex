@@ -37,5 +37,21 @@
       </select><br>
     <label for='updatenumber'>What is the new amount of total prescriptions?</label>
     <input name='updatenumber' id='updatenumber' type='number' default=0><br>
+    <label for="drug">What is the new drug:</label>
+    <select name="drug" id="drug">
+      {% for o in one %}
+      <option value="{{ o.drug }}">{{ o.drug }}</option>
+      {% endfor %}
+    </select><br>
+    <label for='qty'>Quantity Prescribed:</label>
+    <br>
+    <input type='number' default='1' name='qty' id='qty' min="1" max="99999">
+    <br>
+    <label for="cred">Credentials:</label>
+    <select name="cred" id="cred">
+        {% for t in two %}
+            <option value="{{ t.id }}">{{ t.credential }}</option>
+            {% endfor %}
+    </select><br>
     <button type='submit'>Update</button>
 </form>
