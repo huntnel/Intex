@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Drug, Triple, pd_prescriber, Credential, State, Prescriber_Credential
-from django.db import connection
+from django.db.models import  Avg
 
 
 # Create your views here.
@@ -46,23 +46,25 @@ def drugFindPageView(request):
     sName = request.GET['drugName']
     sName = sName.upper()
     bOpioid = request.GET['bOpioid']
-    context = 0
     if (sName == '') :
         if (bOpioid == 'True') :
             data = Drug.objects.filter(isopioid=True)
         else :
             data = Drug.objects.filter(isopioid=False)
+    else :
+        if (bOpioid == " " or bOpioid == None or bOpioid == "") :
+            data = Drug.objects.filter(drugname=sName)
+        else :
+            data = Drug.objects.filter(drugname=sName, isopioid=bOpioid)
+    try :
         context = {
             "drugs" : data
         }
-    else :
-        data = Drug.objects.filter(drugname=sName, isopioid=bOpioid)
-        context = {
-            "drugs" : data
-        }
-    if data.count() > 0 :
-        return render(request, 'OpiodPages/displaydrugs.html', context)
-    else :
+        if data.count() > 0 :
+            return render(request, 'OpiodPages/displaydrugs.html', context)
+        else :
+            return render(request, 'OpiodPages/notfound.html')
+    except : 
         return render(request, 'OpiodPages/notfound.html')
 
 def educationLandingView(request):
@@ -193,19 +195,19 @@ def prescriberFindPageView(request) :
         'WHNP' : 110,
         ' ' : 1
     }
-    lstcred = []
-    lstcred1 = []
-    lstdrug = []
-    data= ''
-    data2 = ''
-    data3 = ''
     sFirst = request.GET['firstName']
+    sFirst = sFirst.lower()
+    sFirst = sFirst.capitalize()
     sLast = request.GET['lastName']
+    sLast = sLast.lower()
+    sLast = sLast.capitalize()
     sGender = request.GET['gender']
     sGender = sGender.upper()
     sLocation = request.GET['location']
     sCredentials = request.GET['credentials']
     sSpecialty = request.GET['specialty']
+    sSpecialty = sSpecialty.lower()
+    sSpecialty = sSpecialty.title()
     sCred = dictCreds.get(sCredentials)
     print(sCred)
     if (sFirst == '') :
@@ -213,96 +215,33 @@ def prescriberFindPageView(request) :
             if (sGender == '') :
                 if (sLocation == '') :
                     if (sSpecialty == '') :
-                        # filter = Prescriber_Credential.objects.filter(credid=sCred)
-                        # print('Here is the filter:')
-                        # print(filter)
-                        # for iCount in range(0, len(filter)) :
-                        #     print('Here is the loop filter:')
-                        #     print(filter[iCount].npi)
-                        #     sSplit = str(filter[iCount].npi)
-                        #     print("Here is the split data")
-                        #     sWord = sSplit.split()
-                        #     sWord1 = sWord[0]
-                        #     sWord2 = sWord[1]
-                        #     print(sWord)
-                        #     print(sWord[0])
-                        #     data = pd_prescriber.objects.filter(fname=sWord1, lname=sWord2)
-                            filter = Prescriber_Credential.objects.filter(credid=sCred)
-                            print('Here is the filter:')
-                            print(filter)
-                            for iCount in range(0, len(filter)) :
-                                print('here is the loop filter')
-                                print(filter[iCount].npi)
-                                print('before snpi')
-                                snpi = str(filter[iCount].npi)
-                                print('after snpi')
-                                print(snpi)
-                                print('int before')
-                                snpi = int(snpi)
-                                print('after int')
-                                print(snpi)
+                            data = pd_prescriber.objects.filter(fname= sFirst)
                             return render(request, 'OpiodPages/notfound.html')
-                            
-                            
-                        # for iCount in range(0, len(filter)) :
-                        #     # iLookup = int(filter[iCount].npi)
-                        #     # data = pd_prescriber.objects.filter(npi=filter[iCount].npi)
-                        #     data = pd_prescriber.objects.get(npi=1)
                     else :
                         data = pd_prescriber.objects.filter(specialty = sSpecialty)
-                        for iCount in range(0, len(data)) :
-                            lstcred.append(Prescriber_Credential.objects.filter(npi=data[iCount].npi))
-                            lstdrug.append(Triple.objects.filter(pd_prescriber=data[iCount].npi))
                 else :
                     data = pd_prescriber.objects.filter(state=sLocation)
-                    for iCount in range(0, len(data)) :
-                        lstcred.append(Prescriber_Credential.objects.filter(npi=data[iCount].npi))
-                        lstdrug.append(Triple.objects.filter(pd_prescriber=data[iCount].npi))
             else :
                 data = pd_prescriber.objects.filter(gender=sGender)
-                for iCount in range(0, len(data)) :
-                    lstcred.append(Prescriber_Credential.objects.filter(npi=data[iCount].npi))
-                    lstdrug.append(Triple.objects.filter(pd_prescriber=data[iCount].npi))
         else :
             data = pd_prescriber.objects.filter(lname = sLast)
-            for iCount in range(0, len(data)) :
-                lstcred.append(Prescriber_Credential.objects.filter(npi=data[iCount].npi))
-                lstdrug.append(Triple.objects.filter(pd_prescriber=data[iCount].npi))
     elif (sLast == '') :
         data = pd_prescriber.objects.filter(fname=sFirst)
-        for iCount in range(0, len(data)) :
-            lstcred.append(Prescriber_Credential.objects.filter(npi=data[iCount].npi))
-            lstdrug.append(Triple.objects.filter(pd_prescriber=data[iCount].npi))
     elif (sLast != '') :
         if (sGender == '' or sLocation == '' or sSpecialty == '') :
             data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast)
-            for iCount in range(0, len(data)) :
-                data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi).only("credid")
-                data3 = Triple.objects.filter(pd_prescriber=data[iCount].npi).only("drug")
-                # data4 = pd_prescriber.objects.raw('SELECT "id", trunc(avg(qty), 2) as averagedrug from "OpiodPages_triple" GROUP BY id')
-
         else :
             data = pd_prescriber.objects.filter(fname=sFirst, lname=sLast, gender=sGender, state=sLocation, specialty=sSpecialty)
-            for iCount in range(0, len(data)) :
-                oCred = Prescriber_Credential.objects.get(npi=data[iCount].npi)
-                lstcred.append(oCred.credid)
-                for iCount1 in range(0, len(lstcred)) :
-                    lstcred1.append(lstcred[iCount])
-                oDrug = Triple.objects.filter(pd_prescriber=data[iCount].npi)
-                lstdrug.append(oDrug.drug)
-    # try :
-    if data.count() > 0 :
-        context = {
-                'prescribers' : data,
-                'credentials' : data2,
-                'triple' : data3,
-                # 'avg' : data4
-            }
-        return render(request, 'OpiodPages/prescriberdisplay.html', context)
-    else :
+    try :
+        if data.count() > 0 :
+            context = {
+                    'prescribers' : data,
+                }
+            return render(request, 'OpiodPages/prescriberdisplay.html', context)
+        else :
+            return render(request, 'OpiodPages/notfound.html')
+    except :
         return render(request, 'OpiodPages/notfound.html')
-    # except :
-    #     return render(request, 'OpiodPages/notfound.html')
 
 def recommenderPageView(request):
     return render(request, 'OpiodPages/recommender.html')
@@ -479,3 +418,35 @@ def recommenderPageView(request):
     }
     
     return render(request, 'OpiodPages/recommenderdisplay.html', context)
+
+def preDetailsPageView(request, npi) :
+    data = pd_prescriber.objects.filter(npi=npi)
+    for iCount in range(0, len(data)) :
+        data2 = Prescriber_Credential.objects.filter(npi=data[iCount].npi).only("credid")
+        data3 = Triple.objects.filter(pd_prescriber=data[iCount].npi).exclude(qty=0).only("drug")
+    context = {
+        'prescribers' : data,
+        'credentials' : data2,
+        'triple' : data3,
+    }
+    return render(request, 'OpiodPages/predetails.html', context)
+
+def displayAvgPageView(request, drugid) :
+    data = Drug.objects.filter(drugname=drugid)
+    data2 = Triple.objects.filter(drug=data[0].drugid).exclude(qty=0).aggregate(Avg('qty'))
+    context = {
+        "drug" : data,
+        "avg" : data2
+    }
+    return render(request, "OpiodPages/predetailsavg.html", context)
+
+def displayTopPre(request, drugid) :
+    data = Triple.objects.filter(drug=drugid).order_by(('qty'))
+    data = data.reverse()[:10]
+    try :
+        context = {
+            'pres' : data
+        }
+        return render(request, 'OpiodPages/displaytop.html', context)
+    except :
+        return render(request, 'OpiodPages/notfound.html')

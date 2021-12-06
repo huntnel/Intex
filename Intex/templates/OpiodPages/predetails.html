@@ -3,26 +3,41 @@
 {% block content %}
 <table style="margin-left:auto;margin-right:auto;width: 70%;">
     <tr>
-        <td></td>
         <td style="font-weight:bold;">NPI</td>
         <td style="font-weight:bold;">Name</td>
         <td style="font-weight:bold;">Gender</td>
         <td style="font-weight:bold;">State</td>
+        <td style="font-weight:bold;">Specialty</td>
         <td style="font-weight:bold;">Do they prescribe opioids?</td>
-        <td></td>
+        <td style="font-weight:bold;">Number of drugs prescribed</td>
+        <td style="font-weight:bold;">Credentials</td>
     </tr>
     {% for pre in prescribers %}
     <tr>
-        <td><form action='{% url 'edit' npi=pre.npi %}' method='GET'>{% csrf_token %}<button type='submit'>Edit</button></form></td>
         <td>{{pre.npi}}</td>
         <td>{{pre.fname}} {{pre.lname}}</td>
         <td>{{pre.gender}}</td>
         <td>{{pre.state.state}}</td>
+        <td>{{pre.specialty}}</td>
         <td>{{pre.isopioidprescriber}}</td>
-        <td><form action="{% url 'delete' npi=pre.npi %}" method='POST'>{% csrf_token %}<button type='submit'>Delete</button></form></td>
+        <td>{{pre.totalprescriptions}}</td>
+        {% for cred in credentials.all %}
+        <td>{{ cred.credid }}</td>
+        {% endfor %}
     </tr>
+    {% endfor %}
+</table> 
+<table style="margin-left:auto;margin-right:auto;width: 70%;">
     <tr>
-        <td><form action="{% url 'predetails' npi=pre.npi %}" method="GET">{% csrf_token %}<button type="submit">See Details</button></form>
+        <td style="font-weight:bold;">Drug Name</td>
+        <td style="font-weight:bold;">Amount Prescribed</td>
+        <td></td>
+    </tr>
+    {% for d in triple.all %}
+    <tr>
+        <td>{{ d.drug }}</td>
+        <td>{{ d.qty }}</td>
+        <td><form action="{% url 'displayavg' drugid=d.drug %}" method='GET'>{% csrf_token %}<button type='submit'>Display Average</button></form></td>
     </tr>
     {% endfor %}
 </table> 

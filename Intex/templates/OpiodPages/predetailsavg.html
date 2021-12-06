@@ -1,0 +1,18 @@
+{% load static %}
+{% load templatetags %}
+{% block content %}
+<table style="margin-left:auto;margin-right:auto;width: 70%;">
+    <tr>
+        <td style="font-weight:bold;">Drug</td>
+        <td style="font-weight:bold;">Average</td>
+    </tr>
+    <tr>
+        {% for d in drug %}
+        <td>{{d.drugname}}</td>
+        {% endfor %}
+        <td>{{ avg.qty__avg }}</td>
+    </tr>
+</table> 
+ <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search Again</button></form>
+ <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit">Search for a drug</button></form>
+{% endblock %}
