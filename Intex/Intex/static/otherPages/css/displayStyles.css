@@ -1,5 +1,5 @@
 .background-stuff {
-    background-color: #c4d3f6;
+    background-color: white;
     display: flex;
     flex-direction: column;
   }
@@ -34,12 +34,13 @@
     display: table-cell;
     text-align: center;
     color: #fff;
-    background: #6c7ae0;
+    background: rgb(19,38,70);
     font-family: "Poppins", sans-serif;
     font-size: 18px;
   }
   
   .rTableCell {
+    text-align: center;
     display: table-cell;
     background: white;
     font-family: "Poppins", sans-serif;
@@ -52,7 +53,7 @@
     width: 76vw;
     border-radius: 10px;
     overflow: hidden;
-    background: white;
+    background: #a4a8af17;
     max-width: 65rem;
     align-self: center;
     padding-left: 40px;
@@ -61,18 +62,18 @@
     padding-bottom: 20px;
   }
   
-  button {
+  .button {
     margin: 0.5rem;
     font-family: "Poppins", sans-serif;
     font-size: 15px;
     border: none;
-    background: #f3efff;
+    background: #a4a8af17;
     user-select: none;
     cursor: pointer;
   }
   
   button:hover {
-    background: rgb(247, 148, 0);
+    background: rgb(19,38,70);
     color: white;
   }
   
@@ -98,8 +99,8 @@
   }
   
   .styled:hover {
-    background-color: rgb(247, 148, 0);
-    border-color: rgb(247, 148, 0);
+    background-color: rgb(19,38,70);
+    border-color: rgb(19,38,70);
   }
   
   .styled:focus {
