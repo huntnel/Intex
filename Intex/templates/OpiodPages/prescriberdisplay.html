@@ -65,14 +65,14 @@
         <!--Row for edit button-->  
         <div class="rTableCell">
           <form action='{% url 'edit' npi=pre.npi %}' method='GET'>{% csrf_token %}
-              <button type='submit'>Edit</button>
+              <button class="button" type='submit'>Edit</button>
           </form>
         </div>
 
         <!--Row for See details button-->
         <div class="rTableCell">
           <form action="{% url 'predetails' npi=pre.npi %}" method="GET">{% csrf_token %}
-              <button type="submit">See Details</button>
+              <button class="button" type="submit">See Details</button>
           </form>
         </div>
 
@@ -104,7 +104,7 @@
         <!--Row for delete button-->
         <div class="rTableCell">
           <form action="{% url 'delete' npi=pre.npi %}" method='POST'>{% csrf_token %}
-              <button type='submit'>Delete</button>
+              <button class= "button" type='submit'>Delete</button>
           </form>
         </div>
       </div>
