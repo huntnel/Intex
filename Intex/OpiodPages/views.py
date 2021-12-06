@@ -34,8 +34,12 @@ def drugSearchView(request):
 def drugFindPageView(request):
     data = ''
     sName = request.GET['drugName']
+    print(sName)
     sName = sName.upper()
     bOpioid = request.GET['bOpioid']
+    print('this is the drug name')
+    print(bOpioid)
+    print('this is the boolean')
     if (sName == '') :
         if (bOpioid == 'True') :
             data = Drug.objects.filter(isopioid=True)
@@ -46,16 +50,16 @@ def drugFindPageView(request):
             data = Drug.objects.filter(drugname=sName)
         else :
             data = Drug.objects.filter(drugname=sName, isopioid=bOpioid)
-    try :
-        context = {
-            "drugs" : data
-        }
-        if data.count() > 0 :
-            return render(request, 'OpiodPages/displaydrugs.html', context)
-        else :
-            return render(request, 'OpiodPages/notfound.html')
-    except : 
-        return render(request, 'OpiodPages/notfound.html')
+    # try :
+    context = {
+        "drugs" : data
+    }
+        # if data.count() > 0 :
+    return render(request, 'OpiodPages/displaydrugs.html', context)
+    #     else :
+    #         return render(request, 'OpiodPages/notfound.html')
+    # except : 
+    #     return render(request, 'OpiodPages/notfound.html')
 
 def educationLandingView(request):
     return render(request, 'OpiodPages/educationlanding.html')

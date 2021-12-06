@@ -21,7 +21,7 @@
     <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search for a drug prescriber</button></button></form>
 </table> {% endcomment %}
 
-
+{% block content %}
 <div class="background-stuff">
   <h1>Prescriber</h1>
   <div class="table-container">
@@ -37,8 +37,9 @@
         
         <!--Name Field-->
         <div class="rTableCell">
-            {{p.name}} {{p.lname}}
+            {{p.fname}} {{p.lname}}
         </div>
+      </div>
       {% endfor %}
     </div>
   </div>
