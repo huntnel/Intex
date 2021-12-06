@@ -1,0 +1,32 @@
+<h1 style='text-align: center;'>States With Top Opioid Deaths</h1>
+<table style="margin-left:auto;margin-right:auto;width: 50%;">
+    <tr>
+        <td style="font-weight:bold;">State</td>
+        <td style="font-weight:bold;">Deaths</td>
+    </tr>
+    {% for s in states %}
+    <tr>
+        <td>{{s.state}}</td>
+        <td>{{s.deaths}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<h1 style='text-align: center;'>Most Popular Opioid</h1>
+<table style="margin-left:auto;margin-right:auto;width: 50%;">
+    <tr>
+        <td style="font-weight:bold;">Drug</td>
+        <td style="font-weight:bold;">Quantity Prescribed</td>
+    </tr>
+    <tr>
+        <td>{{dname.drugname}}</td>
+        {% for o in opioid %}
+        <td>{{o.qty__sum}}</td>
+        {% endfor %}
+    </tr>
+</table>
+<h1 style='text-align: center;'>Amount of Opioids Prescribed</h1>
+<table style="margin-left:auto;margin-right:auto;width: 50%;">
+    <tr>
+        <td>{{ numop }}</td>
+    </tr>
+</table>

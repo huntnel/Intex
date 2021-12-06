@@ -1,19 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from .models import Drug, Triple, pd_prescriber, Credential, State, Prescriber_Credential
-from django.db.models import  Avg
+from django.db.models import  Avg, Max, Count, Sum
 
 
 # Create your views here.
 import json
 from pip._vendor import requests 
-
-def test(request) :
-    data = Drug.objects.filter(isopioid = True)
-    context = {
-        'Drugs' : data
-    }
-    return render(request, 'OpiodPages/test.html', context)
 
 def indexPageView(request):
     return render(request, 'OpiodPages/index.html')
@@ -23,9 +15,6 @@ def analysis1PageView(request):
 
 def analysis2PageView(request):
     return render(request, 'OpiodPages/analysis2.html')
-
-def analysis3PageView(request):
-    return render(request, 'OpiodPages/analysis3.html')
 
 def analysisLandingView(request):
     credentials = Credential.objects.all() 
@@ -69,9 +58,6 @@ def drugFindPageView(request):
 
 def educationLandingView(request):
     return render(request, 'OpiodPages/educationlanding.html')
-
-def predictorPageView(request):
-    return render(request, 'OpiodPages/predictor.html')
 
 def prescriberSearchView(request):
     credentials = Credential.objects.all() 
@@ -208,14 +194,16 @@ def prescriberFindPageView(request) :
     sSpecialty = request.GET['specialty']
     sSpecialty = sSpecialty.lower()
     sSpecialty = sSpecialty.title()
-    sCred = dictCreds.get(sCredentials)
-    print(sCred)
+    iCred = dictCreds.get(sCredentials)
+    print(iCred)
     if (sFirst == '') :
         if (sLast == '') : 
             if (sGender == '') :
                 if (sLocation == '') :
                     if (sSpecialty == '') :
-                            data = pd_prescriber.objects.filter(fname= sFirst)
+                            creds = Prescriber_Credential.objects.filter(credid=iCred)
+                            for iCount in range(0, len(creds)) :
+                                data = pd_prescriber.objects.filter(npi = creds[iCount].npi)
                             return render(request, 'OpiodPages/notfound.html')
                     else :
                         data = pd_prescriber.objects.filter(specialty = sSpecialty)
@@ -242,9 +230,6 @@ def prescriberFindPageView(request) :
             return render(request, 'OpiodPages/notfound.html')
     except :
         return render(request, 'OpiodPages/notfound.html')
-
-def recommenderPageView(request):
-    return render(request, 'OpiodPages/recommender.html')
 
 def searchLandingView(request):
     return render(request, 'OpiodPages/searchlanding.html')
@@ -441,12 +426,57 @@ def displayAvgPageView(request, drugid) :
     return render(request, "OpiodPages/predetailsavg.html", context)
 
 def displayTopPre(request, drugid) :
+    # data2 = ''
     data = Triple.objects.filter(drug=drugid).order_by(('qty'))
     data = data.reverse()[:10]
-    try :
-        context = {
-            'pres' : data
-        }
-        return render(request, 'OpiodPages/displaytop.html', context)
-    except :
-        return render(request, 'OpiodPages/notfound.html')
+    data2 = pd_prescriber.objects.all()
+    for iCount in range(0, len(data2)) :
+        data2[iCount].npi = str(data2[iCount].npi)
+        print(data2[iCount].npi + ' is a string')
+    # lstPres = []
+    # for iCount in range(0, len(data)) :
+    #     sNpi = data[iCount].pd_prescriber
+    #     iNpi = int(str(sNpi))
+    #     data2 = pd_prescriber.objects.filter(npi=iNpi)
+    #     lstPres.append(data2)
+    #     print(str(iCount))
+    #     print(data2)
+    # print("final data2")
+    # print(data2)
+    # print(lstPres)
+    # try :
+    print('data')
+    print(data)
+    print('data2')
+    print(data2)
+    context = {
+        'npis' : data,
+        'pres' : data2
+    }
+    return render(request, 'OpiodPages/displaytop.html', context)
+    # except :
+    #     return render(request, 'OpiodPages/notfound.html')
+
+def sqlDisplayPageView(request) :
+    qOpioids = Drug.objects.filter(isopioid = 'True')
+    iTotal = 0
+    data = State.objects.all().order_by('deaths')
+    data = data.reverse()[:10]
+    for iCounting in range(0, len(qOpioids)) :
+        data2 = Triple.objects.filter(drug=qOpioids[iCounting].drugid).values('drug').annotate(Sum("qty")).order_by('qty__sum')
+    data2 = data2.reverse()[:1]
+    data3 = Drug.objects.get(drugid= data2[0]['drug'])
+    print(qOpioids)
+    for iCount in range(0, len(qOpioids)) :
+        data4 = Triple.objects.filter(drug=qOpioids[iCount].drugid).aggregate(Sum('qty'))
+        iTotal = iTotal + data4['qty__sum']
+    context = {
+        "states" : data,
+        "opioid" : data2,
+        'dname' : data3,
+        'numop' : iTotal
+    }
+    # try :
+    return render(request, 'OpiodPages/sqldisplay.html', context)
+    # except : 
+    #     return render(request, "OpiodPages/notfound.html")    

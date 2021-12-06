@@ -50,6 +50,10 @@ class pd_prescriber(models.Model) :
         db_table = 'OpiodPages_pd_prescriber'
 
     def __str__(self) :
+        return(str(self.npi))
+
+    @property
+    def returnName(self) :
         return(self.fname + ' ' + self.lname)
 
 class Prescriber_Credential(models.Model) :

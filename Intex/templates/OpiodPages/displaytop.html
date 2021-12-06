@@ -1,12 +1,23 @@
+{% load templatetags %}
 <table style="margin-left:auto;margin-right:auto;width: 50%;">
     <tr>
         <td style="font-weight:bold;">Prescriber</td>
     </tr>
     {% for p in pres %}
+    {% for n in npis %}
     <tr>
-        <td>{{p.pd_prescriber}}</td>
+        {% if p.npi == n.pd_prescriber%}
+        <td>{{ p.npi }}</td>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        {% comment %} {% for p in pres %}
+        {% if p.npi == n.pd_prescriber %}
+        <td>{{ p.fname }}</td>
+        {% endif %}
+        <td>{{ n.pd_prescriber }}</td>
+        {% endfor %} {% endcomment %}
     </tr>
-    {% endfor %}
     <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit">Search Again</button></form>
     <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search for a drug prescriber</button></button>
 </table>

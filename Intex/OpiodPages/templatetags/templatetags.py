@@ -2,6 +2,7 @@ from django import template
 
 register = template.Library()
 
-@register.filter()
-def range(num):
-    return range(num)
+@register.filter(name='to_str')
+
+def to_str(value) :
+    return str(value)
