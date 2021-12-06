@@ -1,8 +1,8 @@
 <form method="POST" action='{% url 'createprescriber' %}'>
     {% csrf_token %}
-    <label for='npi'>Please enter the NPI</label>
+    <label for='npi'>Please enter the NPI:</label>
     <br>
-    <input type='number' default='0' name='npi' id='npi'>
+    <input type='number' default='1' name='npi' id='npi' min="1" max="9999999999">
     <br>
     <label for='fname'>First Name:</label>
     <br>
@@ -20,18 +20,18 @@
     <br>
     <input type='text' name='specialty' id='specialty'>
     <br>
-    <label for='bPrescriber'>Do they prescribe opioids?</label>
+    <label for='bPrescriber'>Do they prescribe opioids?:</label>
     <br>
     <select name="bPrescriber" id="bPrescriber">
         <option value="True">Yes</option>
         <option value="False">No</option>
     </select>
     <br>
-    <label for='total'>Total Prescriptions</label>
+    <label for='total'>Total Prescriptions:</label>
     <br>
-    <input type='number' default='0' name='total' id='total'>
+    <input type='number' default='1' name='total' id='total' min="1" max="99999">
     <br>
-    <label for="location">Location</label>
+    <label for="location">Location:</label>
     <select name="location" id="location">
       <option value="">None</option>
         {% for loc in Locations %}
@@ -39,5 +39,21 @@
             {% endfor %}
     </select>
     <br>
+    <label for="drug">Drug:</label>
+    <select name="drug" id="drug">
+        {% for d in Drugs %}
+            <option value="{{ d.drugid }}">{{ d.drugname }}</option>
+            {% endfor %}
+    </select><br>
+    <label for='qty'>Quantity Prescribed:</label>
+    <br>
+    <input type='number' default='1' name='qty' id='qty' min="1" max="99999">
+    <br>
+    <label for="cred">Credentials:</label>
+    <select name="cred" id="cred">
+        {% for c in Creds %}
+            <option value="{{ c.id }}">{{ c.credential }}</option>
+            {% endfor %}
+    </select><br>
     <button type='submit'>Add</button>
 </form>
