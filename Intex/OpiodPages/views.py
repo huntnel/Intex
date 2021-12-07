@@ -34,8 +34,12 @@ def drugSearchView(request):
 def drugFindPageView(request):
     data = ''
     sName = request.GET['drugName']
+    print(sName)
     sName = sName.upper()
     bOpioid = request.GET['bOpioid']
+    print('this is the drug name')
+    print(bOpioid)
+    print('this is the boolean')
     if (sName == '') :
         if (bOpioid == 'True') :
             data = Drug.objects.filter(isopioid=True)
@@ -46,16 +50,16 @@ def drugFindPageView(request):
             data = Drug.objects.filter(drugname=sName)
         else :
             data = Drug.objects.filter(drugname=sName, isopioid=bOpioid)
-    try :
-        context = {
-            "drugs" : data
-        }
-        if data.count() > 0 :
-            return render(request, 'OpiodPages/displaydrugs.html', context)
-        else :
-            return render(request, 'OpiodPages/notfound.html')
-    except : 
-        return render(request, 'OpiodPages/notfound.html')
+    # try :
+    context = {
+        "drugs" : data
+    }
+        # if data.count() > 0 :
+    return render(request, 'OpiodPages/displaydrugs.html', context)
+    #     else :
+    #         return render(request, 'OpiodPages/notfound.html')
+    # except : 
+    #     return render(request, 'OpiodPages/notfound.html')
 
 def educationLandingView(request):
     return render(request, 'OpiodPages/educationlanding.html')
@@ -395,9 +399,14 @@ def deletePageView(request, npi) :
 def editPageView(request, npi) :
     data = pd_prescriber.objects.filter(npi=npi)
     data2 = State.objects.all()
+    filter = Triple.objects.filter(pd_prescriber=data[0].npi)
+    data3 = Drug.objects.exclude(drugid__in=filter.drugid.all())
+    data4 = Credential.objects.all()
     context = {
         "edit" : data,
-        "Locations" : data2
+        "Locations" : data2,
+        "one" : data3,
+        "two" : data4
     }
     return render(request, 'OpiodPages/edit.html', context)
 
@@ -430,6 +439,9 @@ def updatePageView(request) :
         newtotalprescriptions = request.POST.get('updatenumber')
         if newtotalprescriptions == '' :
             newtotalprescriptions = oUpdate.totalprescriptions
+
+        # if (request.POST.get(''))
+
         oUpdate.fname = newfname
         oUpdate.lname = newlname
         oUpdate.gender = newgender
