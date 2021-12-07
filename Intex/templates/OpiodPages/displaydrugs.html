@@ -8,24 +8,7 @@
 {% endblock %} 
 
 {% block content %}
-{% comment %} <table style="margin-left:auto;margin-right:auto;width: 50%;">
-    <tr>
-        <td style="font-weight:bold;">Drug Name</td>
-        <td style="font-weight:bold;">Opioid?</td>
-        <td></td>
-    </tr>
-    {% for drug in drugs %}
-    <tr>
-        <td>{{drug.drugname}}</td>
-        <td>{{drug.isopioid}}</td>
-        <td><form action="{% url 'displaytoppre' drugid=drug.drugid %}" method="GET">{% csrf_token %}<button type="submit">Top Ten Prescribers</button></form></td>
-    </tr>
-    {% endfor %}
-    <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit">Search Again</button></form>
-    <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search for a drug prescriber</button></button>
-</table> {% endcomment %}
-
-<div class="background-stuff">
+<div class="background-stuff" style="min-height:80vh;">
     <h1>Drug Results</h1>
     <div class="table-container">
       <div class="rTable">
@@ -54,17 +37,18 @@
           <!--Row for Top 10 button-->
           <div class="rTableCell">
             <form class="button" action="{% url 'displaytoppre' drugid=drug.drugid %}" method="GET">{% csrf_token %}
-                <button type="submit">Top Ten Prescribers</button>
+                <button class="button" type="submit">Top Ten Prescribers</button>
             </form>
           </div>
         </div>
         {% endfor %}
       </div>
     </div>
+    {% comment %} Button Container {% endcomment %}
+  <div class="button-container"  style="padding-bottom: 20px;">
+    <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit" class="styled" style="width: 223px;">Search Again</button></form>
+    <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit" class="styled" style="width: 223px;">Search Prescriber</button></form>
   </div>
-  {% comment %} Button Container {% endcomment %}
-<div class="button-container">
-    <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit" class="styled">Search Again</button></form>
-    <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit" class="styled">Search Prescriber</button></form>
-    </div>
+  </div>
+  
     {% endblock %}
