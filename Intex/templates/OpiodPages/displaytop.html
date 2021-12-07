@@ -6,21 +6,6 @@
 <!-- stylesheet -->
 <link rel="stylesheet" href="{% static 'otherPages/css/displayStyles.css' %}">
 {% endblock %} 
-
-{% comment %} {% block content %}
-<table style="margin-left:auto;margin-right:auto;width: 50%;">
-    <tr>
-        <td style="font-weight:bold;">Prescriber</td>
-    </tr>
-    {% for p in pre %}
-    <tr>
-    <td> {{ p.fname }} {{p.lname}}</td>
-    </tr>
-    {% endfor %}
-    <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit">Search Again</button></form>
-    <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search for a drug prescriber</button></button></form>
-</table> {% endcomment %}
-
 {% block content %}
 <div class="background-stuff">
   <h1>Prescriber</h1>
