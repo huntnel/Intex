@@ -78,7 +78,7 @@
   }
   
   .styled {
-    background: #6c7ae0;
+    /* background: #6c7ae0;
     font-weight: bold;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -95,12 +95,35 @@
     font-family: "Poppins", sans-serif;
     font-size: 15px;
     border-radius: 10px;
-    color: white;
+    color: white; */
+
+    margin: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 27px;
+    padding: 8px 36px;
+    background: #48bdc5;
+    border: 1px solid #48bdc5;
+    display: inline-block;
+    text-transform: uppercase;
+    font-family: "Source Sans Pro", sans-serif;
+    transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
   }
   
   .styled:hover {
-    background-color: rgb(19,38,70);
-    border-color: rgb(19,38,70);
+    color: #48bdc5;
+    border: 1px solid #48bdc5;
+    background: #ffffff;
+    transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
   }
   
   .styled:focus {

@@ -54,7 +54,7 @@
           <!--Row for Top 10 button-->
           <div class="rTableCell">
             <form class="button" action="{% url 'displaytoppre' drugid=drug.drugid %}" method="GET">{% csrf_token %}
-                <button type="submit">Top Ten Prescribers</button>
+                <button class="button" type="submit">Top Ten Prescribers</button>
             </form>
           </div>
         </div>
