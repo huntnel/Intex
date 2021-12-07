@@ -8,7 +8,7 @@
 {% endblock %} 
 
 {% block content %}
-<div class="background-stuff">
+<div class="background-stuff" style="min-height:80vh;">
     <h1>Drug Results</h1>
     <div class="table-container">
       <div class="rTable">
@@ -37,17 +37,18 @@
           <!--Row for Top 10 button-->
           <div class="rTableCell">
             <form class="button" action="{% url 'displaytoppre' drugid=drug.drugid %}" method="GET">{% csrf_token %}
-                <button type="submit">Top Ten Prescribers</button>
+                <button class="button" type="submit">Top Ten Prescribers</button>
             </form>
           </div>
         </div>
         {% endfor %}
       </div>
     </div>
-  </div>
-  {% comment %} Button Container {% endcomment %}
-<div class="button-container"  style="padding-bottom: 20px;">
+    {% comment %} Button Container {% endcomment %}
+  <div class="button-container"  style="padding-bottom: 20px;">
     <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit" class="styled" style="width: 223px;">Search Again</button></form>
     <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit" class="styled" style="width: 223px;">Search Prescriber</button></form>
-    </div>
+  </div>
+  </div>
+  
     {% endblock %}

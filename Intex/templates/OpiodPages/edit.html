@@ -39,8 +39,9 @@
     <input name='updatenumber' id='updatenumber' type='number' default=0><br>
     <label for="drug">What is the new drug:</label>
     <select name="drug" id="drug">
-      {% for o in one %}
-      <option value="{{ o.drug }}">{{ o.drug }}</option>
+      <option value=''>None</option>
+      {% for d in drugs %}
+      <option value="{{ d.drugid }}">{{ d.drugname }}</option>
       {% endfor %}
     </select><br>
     <label for='qty'>Quantity Prescribed:</label>
@@ -49,7 +50,8 @@
     <br>
     <label for="cred">Credentials:</label>
     <select name="cred" id="cred">
-        {% for t in two %}
+      <option value=''>None</option>
+        {% for t in creds %}
             <option value="{{ t.id }}">{{ t.credential }}</option>
             {% endfor %}
     </select><br>

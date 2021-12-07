@@ -10,7 +10,7 @@
         {% for d in drug %}
         <td>{{d.drugname}}</td>
         {% endfor %}
-        <td>{{ avg.qty__avg }}</td>
+        <td>{{ avg }}</td>
     </tr>
 </table> 
  <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search Again</button></form>
