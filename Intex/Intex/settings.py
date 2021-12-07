@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 import django_heroku
 import dj_database_url 
-
+import django_heroku
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("intex2021whcbplease")
+SECRET_KEY = 'intex2021whcbplease'
+# SECRET_KEY = os.environ.get('intex2021whcbplease')
 EMAIL_HOST_USER = os.environ.get('whnelson2000@gmail.com')
 EMAIL_HOST_PASSWORD = os.environ.get('Huntern1@') 
 
