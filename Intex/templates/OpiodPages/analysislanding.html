@@ -24,6 +24,8 @@
             <p>
               Enter the state, gender, specialty, and if the drug is an opioid or not 
               and a prediction will be generated.
+             <br>
+             <br> 
             </p>
 
           </div>
@@ -43,17 +45,14 @@
           </div>
           <div class="text">
             <p>
-              Opioids can cause bad reactions that 
-              make your breathing slow or even stop. 
-              This can happen if your body can't handle 
-              the opioids that you take that day.
+              Using Azure Machine Learning Studio we have created a tool 
+              to recommend drugs for a prescriber to prescribe. 
+              Enter a NPI and drug recommendations will be generated.
             </p>
             <p>
-              Never take more opioids to relieve pain
-              than your prescription states.
-              Do not to mix your opioids with alcohol, 
-              benzodiazepines (Xanax, Ativan,
-              Klonopin, Valium), or medicines that make you sleepy.
+              The Recommender will contain drugs that the individual with the 
+              NPI is familiar with. Recommendations may contain both opioids and non-opioid drugs. 
+              Opioids can be extremely addicting consider other drug substitutes.
             </p>
 
           </div>
@@ -82,7 +81,7 @@
             <div class="image-holder">
                 <div class='tableauPlaceholder' id='viz1638573254559' style='position: relative'><noscript><a href='#'><img alt='Total Prescriptions by Specialty ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Pr&#47;PrescbySpecialty&#47;OpPres-Specialty&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='PrescbySpecialty&#47;OpPres-Specialty' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Pr&#47;PrescbySpecialty&#47;OpPres-Specialty&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1638573254559');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.65)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
             </div>
-            <h3><a href="{% url "sqldisplay" %} ">Total prescriptions distributed based on specialty</a></h3>
+            <a href="{% url "sqldisplay" %} "><h3>Total prescriptions distributed based on specialty</h3></a>
           </div>
         </div>
         <div class="col-lg-6 col-md-6">
@@ -91,7 +90,7 @@
                 <div class='tableauPlaceholder' id='viz1638575275963' style='position: relative'><noscript><a href='#'><img alt='Total Opioids Prescribed ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;To&#47;TotalOpiodsPrescribed&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='TotalOpiodsPrescribed&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;To&#47;TotalOpiodsPrescribed&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1638575275963');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.65)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
               </a>
             </div>
-            <h3>Total opiods prescribed in the United States</h3>
+            <a href="{% url "sqldisplay" %} "><h3>Total opiods prescribed in the United States</h3></a>
           </div>
         </div>
         <div class="col-lg-6 col-md-6">
@@ -101,7 +100,7 @@
 <div class='tableauPlaceholder' id='viz1638573074854' style='position: relative'><noscript><a href='#'><img alt='Opioid Deaths by State ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;De&#47;DeathState&#47;DeathState&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='DeathState&#47;DeathState' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;De&#47;DeathState&#47;DeathState&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1638573074854');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.65)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
               </a>
             </div>                 
-            <h3>Total opioid related deaths per state</h3>
+            <a href="{% url "sqldisplay" %} "><h3>Total opioid related deaths per state</h3></a>
           </div>
         </div>
         <div class="col-lg-6 col-md-6">
@@ -112,7 +111,7 @@
                 
               </a>
             </div>
-            <h3>All Drug Prescribers Per State </h3>
+            <a href="{% url "sqldisplay" %} "><h3>All Drug Prescribers Per State </h3></a>
           </div>
         </div>
       </div>
