@@ -1,6 +1,141 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
+
+
+
+
+
+
+
+<!-- Section -->
+<div class="background-stuff" style="min-height:90vh;">
+<section class="section style-three pb-0">
+  <div class="container">
+    <div class="row">
+      {% comment %} <div class="col-lg-6 order-1 order-lg-0"> {% endcomment %}
+        <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
+          <div class="section-title">
+            <h3>Edit</h3>
+          </div>
+          {% for e in edit %}  
+          <form name="contact_form" class="default-form contact-form" method='POST' action='{% url 'updateit' %}'>
+            <input type='hidden' value='{{ e.npi }}' name="npihidden">
+            {% csrf_token %}
+            <div class="row">
+              <!--Start First Column-->
+              <div class="col-md-6">
+                <!--firstname-->
+                <div class="form-group" for="firstName">
+                  <input class="form-control" type="text"  name="lastName" id="lastName" placeholder="{{e.fname}}">
+                </div>
+                <!--Gender-->
+                <div class="form-group">
+                  <select class="form-control" name="gender" id="gender">
+                    <option value="">{{e.gender}}</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                  </select>
+                </div>
+                <!--do they prescribe opioids -->
+                <div class="form-group">
+                  <select class="form-control" name="bOpioid" id="bOpioid" default="">
+                    <option value="">Do they prescribe opioids?</option>
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
+                  </select>
+                </div>
+                <!-- end prescribe opioids-->
+
+                <!--new amount of total prescriptions-->
+              <div class="form-group" for="updatenumber">
+                <input class="form-control" name='updatenumber' id='updatenumber' type='number' default={{e.totalprescriptions}} placeholder="Total prescriptions: {{e.totalprescriptions}}">
+              </div>
+
+              <!--Quantityp prescribed-->
+              <!--fix the placeholder value later-->
+              <div class="form-group" for="qty">
+                <input class="form-control" type='number' default='1' name='qty' id='qty' min="1" max="99999" placeholder="Times new drug prescribed">
+              </div>
+              <!--End qty prescribed-->
+
+              </div>
+
+          
+              <!--Start Column 2-->
+              <div class="col-md-6">
+                <!--Last Name -->
+                <div class="form-group" for="lastName">       
+                  <input class="form-control" type="text"  name="lastName" id="lastName" placeholder="{{e.lname}}">     
+                </div>
+                <!--state-->
+                <div class="form-group">
+                  <select class="form-control" name="location" id="location" required>
+                    <option value=''>Select State</option>
+                    {% for loc in Locations %}
+                      <option value="{{ loc.id }}">{{ loc.state }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <!--Specialty-->
+                <div class="form-group" for="specialty">
+                  <input class="form-control" type="text"  name="specialty" id="specialty" placeholder="Specialty: {{e.specialty}}">
+                </div>
+
+                <!--what is the new drug name-->
+                <div class="form-group" for="lastName">
+                  <select class="form-control" name="drug" id="drug">
+                    <option value=''>Select a new drug</option>
+                    {% for d in drugs %}
+                    <option value="{{ d.drugid }}">{{ d.drugname }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                
+
+                <!--credentials-->
+                <div class="form-group" for="lastName">
+                  <select class="form-control" name="cred" id="cred">
+                    <option value=''>Select a new credential</option>
+                      {% for t in creds %}
+                          <option value="{{ t.id }}">{{ t.credential }}</option>
+                          {% endfor %}
+                  </select>
+                </div>
+
+                {% endfor %}
+
+              </div>
+              <div class="col-md-12">
+                <div class="form-group text-center">
+                  <button type="submit" class="btn-style-one">Update</button>
+                </div>
+              </div>
+            </form>
+
+            </div>
+
+        </div>
+      {% comment %} </div> {% endcomment %}
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+
+
+
+
+
+
+
+{% comment %} 
+
 <form method='POST' action='{% url 'updateit' %}'>
     {% csrf_token %}
     {% for e in edit %}
@@ -59,5 +194,5 @@
             {% endfor %}
     </select><br>
     <button type='submit'>Update</button>
-</form>
+</form> {% endcomment %}
 {% endblock %}

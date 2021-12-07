@@ -277,30 +277,40 @@ def addPrescriberPageView(request) :
         return render(request, 'OpiodPages/notfound.html')
 
 def createPrescriberPageView(request) :
-    try :
-        if request.method == 'POST':
-            new_prescriper = pd_prescriber()
-            #Store the data from the form to the new object's attributes (like columns)
-            new_prescriper.npi = request.POST.get('npi')
-            new_prescriper.fname = request.POST.get('fname')
-            new_prescriper.lname = request.POST.get('lname')
-            new_prescriper.gender = request.POST.get('gender')
-            new_prescriper.specialty = request.POST.get('specialty')
-            new_prescriper.isopioidprescriber = request.POST.get('bPrescriber')
-            new_prescriper.totalprescriptions = request.POST.get('total')
-            new_prescriper.state = State.objects.get(state=request.POST.get('location'))
-            drugID = request.POST.get('drug')
-            iQty = request.POST.get('qty')
-            new_prescriper.save()
-            new_triple = Triple(pd_prescriber=pd_prescriber.objects.get(npi= new_prescriper.npi), drug=Drug.objects.get(drugid= drugID), qty=iQty)
-            new_triple.save()
-            iCred = request.POST.get('cred')
-            if iCred != '' :
-                new_pres_cred = Prescriber_Credential(npi = pd_prescriber.objects.get(npi= new_prescriper.npi), credid=Credential.objects.get(id=iCred))
-                new_pres_cred.save()
-        return render(request, 'OpiodPages/prescribersearch.html')
-    except :
-        return render(request, 'OpiodPages/notfound.html')
+    if request.method == 'POST':
+        new_prescriper = pd_prescriber()
+        #Store the data from the form to the new object's attributes (like columns)
+        sFirst = request.POST.get('fname')
+        sFirst = sFirst.lower()
+        sFirst = sFirst.capitalize()
+        sLast = request.POST.get('lname')
+        sLast = sLast.lower()
+        sLast = sLast.capitalize()
+        sGender = request.POST.get('gender')
+        sGender = sGender.upper()
+        sGender = sGender.capitalize()
+        sSpecialty = request.POST.get('specialty')
+        sSpecialty = sSpecialty.lower()
+        sSpecialty = sSpecialty.title()
+
+        new_prescriper.npi = request.POST.get('npi')
+        new_prescriper.fname = sFirst
+        new_prescriper.lname = sLast
+        new_prescriper.gender = sGender
+        new_prescriper.specialty = sSpecialty
+        new_prescriper.isopioidprescriber = request.POST.get('bPrescriber')
+        new_prescriper.totalprescriptions = request.POST.get('total')
+        new_prescriper.state = State.objects.get(state=request.POST.get('location'))
+        drugID = request.POST.get('drug')
+        iQty = request.POST.get('qty')
+        new_prescriper.save()
+        new_triple = Triple(pd_prescriber=pd_prescriber.objects.get(npi= new_prescriper.npi), drug=Drug.objects.get(drugid= drugID), qty=iQty)
+        new_triple.save()
+        iCred = request.POST.get('cred')
+        if iCred != '' :
+            new_pres_cred = Prescriber_Credential(npi = pd_prescriber.objects.get(npi= new_prescriper.npi), credid=Credential.objects.get(id=iCred))
+            new_pres_cred.save()
+    return render(request, 'OpiodPages/prescribersearch.html')
 
 def deletePageView(request, npi) :
     try :
@@ -330,51 +340,57 @@ def editPageView(request, npi) :
         return render(request, 'OpiodPages/notfound.html')
 
 def updatePageView(request) :
-    try :
-        if request.method == 'POST' :
-            iUpdateID = request.POST.get('npihidden')
-            oUpdate = pd_prescriber.objects.get(npi=iUpdateID)
-            newfname = request.POST.get('firstname')
-            if newfname == '' :
-                newfname = oUpdate.fname
-            newlname = request.POST.get('lastname')
-            if newlname == '' :
-                newlname = oUpdate.lname
-            newgender = request.POST.get('gender')
-            if newgender == '' :
-                newgender = oUpdate.gender
-            newstate = request.POST.get('location')
-            if newstate == '' :
-                newstate = oUpdate.state
-            newspecialty = request.POST.get('specialty')
-            if newspecialty == '' :
-                newspecialty = oUpdate.npi
-            newisopioidprescriber = request.POST.get('bOpioid')
-            if newisopioidprescriber == "" :
-                newisopioidprescriber = oUpdate.isopioidprescriber
-            newtotalprescriptions = request.POST.get('updatenumber')
-            if newtotalprescriptions == '' :
-                newtotalprescriptions = oUpdate.totalprescriptions
+    if request.method == 'POST' :
+        iUpdateID = request.POST.get('npihidden')
+        oUpdate = pd_prescriber.objects.get(npi=iUpdateID)
+        newfname = request.POST.get('firstname')
+        print(newfname)
+        if newfname == '' or newfname == None:
+            newfname = oUpdate.fname
+            print(newfname)
+        newlname = request.POST.get('lastname')
+        if newlname == '' or newlname == None:
+            newlname = oUpdate.lname
+        newgender = request.POST.get('gender')
+        if newgender == '' or newgender == None:
+            newgender = oUpdate.gender
+        newstate = request.POST.get('location')
+        if newstate == '' or newstate == None:
+            newstate = oUpdate.state
+        newspecialty = request.POST.get('specialty')
+        if newspecialty == '' or newspecialty == None:
+            newspecialty = oUpdate.npi
+        newisopioidprescriber = request.POST.get('bOpioid')
+        if newisopioidprescriber == "" or newisopioidprescriber == None:
+            newisopioidprescriber = oUpdate.isopioidprescriber
+        newtotalprescriptions = request.POST.get('updatenumber')
+        if newtotalprescriptions == '' or newtotalprescriptions == None:
+            newtotalprescriptions = oUpdate.totalprescriptions
 
-            if (request.POST.get('cred') != '') :
-                newPresCred = Prescriber_Credential(npi = pd_prescriber.objects.get(npi= oUpdate.npi), credid=Credential.objects.get(id=request.POST.get('cred')))
-                newPresCred.save()
+        if (request.POST.get('cred') != '') :
+            newPresCred = Prescriber_Credential(npi = pd_prescriber.objects.get(npi= oUpdate.npi), credid=Credential.objects.get(id=request.POST.get('cred')))
+            newPresCred.save()
 
-            if (request.POST.get('drug') != '') :
-                newTriple = Triple(pd_prescriber=pd_prescriber.objects.get(npi= oUpdate.npi), drug=Drug.objects.get(drugid= request.POST.get('drug')), qty=request.POST.get('qty'))
-                newTriple.save()
+        if (request.POST.get('drug') != '') :
+            newTriple = Triple(pd_prescriber=pd_prescriber.objects.get(npi= oUpdate.npi), drug=Drug.objects.get(drugid= request.POST.get('drug')), qty=request.POST.get('qty'))
+            newTriple.save()
 
-            oUpdate.fname = newfname
-            oUpdate.lname = newlname
-            oUpdate.gender = newgender
-            oUpdate.state = newstate
-            oUpdate.specialty = newspecialty
-            oUpdate.isopioidprescriber = newisopioidprescriber
-            oUpdate.totalprescriptions = newtotalprescriptions
-            oUpdate.save()
-        return render(request, 'OpiodPages/prescribersearch.html')
-    except :
-        return render(request, 'OpiodPages/notfound.html')
+        oUpdate.fname = newfname
+        oUpdate.lname = newlname
+        oUpdate.gender = newgender
+        oUpdate.state = State.objects.get(id= request.POST.get('location'))
+        oUpdate.specialty = newspecialty
+        oUpdate.isopioidprescriber = newisopioidprescriber
+        oUpdate.totalprescriptions = newtotalprescriptions
+        oUpdate.save()
+        data = State.objects.all()
+        data2 = Credential.objects.all()
+        context = {
+            "Locations" : data,
+            "Credentials" : data2
+
+        }
+    return render(request, 'OpiodPages/prescribersearch.html', context)
 
 def predictorPageView(request):
     url = "http://d912db94-d8bb-4e07-aafd-02aebb477c22.eastus2.azurecontainer.io/score"

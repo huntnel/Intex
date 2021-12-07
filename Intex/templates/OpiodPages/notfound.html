@@ -3,11 +3,17 @@
 {% load static %}
 {% load templatetags %}
 {% block pageTitle %}{% endblock %}
+{% block head %}
+<!-- stylesheet -->
+<link rel="stylesheet" href="{% static 'otherPages/css/displayStyles.css' %}">
+{% endblock %} 
 {% block content %}
+<div style="min-height:80vh;">
+<h3 style="text-align:center">Search Not Found</h3>
 
-<p position: fixed;
-top: 50%;
-left: 50%;>Search Not Found</p>
-<form margin: center action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search for a drug prescriber</button></form>
-<form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit">Search for a drug</button></form>
+<div class ="button-container">
+<form margin: center action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit" class="styled">Search for a drug prescriber</button></form>
+<form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit" class="styled">Search for a drug</button></form>
+</div>
+</div>
 {% endblock %}
