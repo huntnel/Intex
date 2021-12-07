@@ -1,14 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load templatetags %}
-
 {% block head %}
 <!-- stylesheet -->
 <link rel="stylesheet" href="{% static 'otherPages/css/displayStyles.css' %}">
-{% endblock %} 
-
+{% endblock %}
 {% block content %}
-
 <div class="background-stuff" style="min-height:80vh;">
   <h1>Prescriber Results</h1>
   <div class="table-container">
@@ -23,51 +20,41 @@
         <div class="rTableHead">Prescribes opioids?</div>
         <div class="rTableHead">Delete</div>
       </div>
-
       <!--Loop through results-->
       {% for pre in prescribers %}
-
       <div class="rTableRow">
-        
         <!--Row for edit button-->  
         <div class="rTableCell">
           <form action='{% url 'edit' npi=pre.npi %}' method='GET'>{% csrf_token %}
               <button class="button" type='submit'>Edit</button>
           </form>
         </div>
-
         <!--Row for See details button-->
         <div class="rTableCell">
           <form action="{% url 'predetails' npi=pre.npi %}" method="GET">{% csrf_token %}
               <button class="button" type="submit">See Details</button>
           </form>
         </div>
-
         <!--NPI Field-->
         <div class="rTableCell">
             {{pre.npi}}
         </div>
-
         <!--Full name field-->
         <div class="rTableCell">
           {{pre.fname}} {{pre.lname}}
         </div>
-
         <!--Gender Field-->
         <div class="rTableCell">
           {{pre.gender}}
         </div>
-
         <!--State Field-->
         <div class="rTableCell">
             {{pre.state.state}}
         </div>
-
         <!--isOpioid Field-->
         <div class="rTableCell">
           {{pre.isopioidprescriber}}
         </div>
-
         <!--Row for delete button-->
         <div class="rTableCell">
           <form action="{% url 'delete' npi=pre.npi %}" method='POST'>{% csrf_token %}
@@ -85,3 +72,12 @@
   </div>
 </div>
 {% endblock %}
+
+
+
+
+
+
+
+
+

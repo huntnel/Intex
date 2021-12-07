@@ -1,6 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load templatetags %}
+{% block head %}
+<!-- stylesheet -->
+<link rel="stylesheet" href="{% static 'otherPages/css/displayStyles.css' %}">
+{% endblock %} 
+{% block content %}
+
+<div class="background-stuff" style="min-height:80vh;">
+    <h1>Drug Averages</h1>
+    <div class="table-container" style="margin-bottom: 650px;">
+        <div class="rTable">
+            <div class="rTableRow">
+            <div class="rTableHead">Drug</div>
+            <div class="rTableHead">Average</div>
+        </div>
+    
+        <!--Loop through results-->
+            {% for d in drug %}
+
+            <div class="rTableRow">
+
+                <!--Drug Field-->
+                <div class="rTableCell">
+                    {{d.drugname}}
+                </div>
+            {%endfor%}
+                <!--Full name field-->
+                <div class="rTableCell">
+                    {{ avg }}
+                </div>
+    
+            
+            </div>
+
+    </div>
+    {% comment %} Button Container {% endcomment %}
+    <div class="button-container" style="padding-bottom: 20px;">
+        <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit" class="styled">Search Again</button></form>
+        <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit" class="styled">Search for a drug</button></form>
+    </div>
+    
+</div>
+{% endblock %}
+
+    
+
+
+
+
+
+
+
+{% comment %} 
+{% extends 'base.html' %}
 {% load static %}
 {% load templatetags %}
 {% block content %}
+
+
 <table style="margin-left:auto;margin-right:auto;width: 70%;">
     <tr>
         <td style="font-weight:bold;">Drug</td>
@@ -12,7 +70,4 @@
         {% endfor %}
         <td>{{ avg }}</td>
     </tr>
-</table> 
- <form action="{% url 'prescribersearch' %}" method="GET">{% csrf_token %}<button type="submit">Search Again</button></form>
- <form action="{% url 'drugsearch' %}" method="GET">{% csrf_token %}<button type="submit">Search for a drug</button></form>
-{% endblock %}
+</table>   {% endcomment %}

@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 <form method="POST" action='{% url 'createprescriber' %}'>
     {% csrf_token %}
     <label for='npi'>Please enter the NPI:</label>
@@ -57,3 +60,4 @@
     </select><br>
     <button type='submit'>Add</button>
 </form>
+{% endblock %}
